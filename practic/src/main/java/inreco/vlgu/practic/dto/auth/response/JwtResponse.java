@@ -1,4 +1,4 @@
-package inreco.vlgu.practic.payload.response;
+package inreco.vlgu.practic.dto.auth.response;
 
 import java.util.List;
 

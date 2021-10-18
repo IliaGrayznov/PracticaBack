@@ -1,8 +1,8 @@
-package inreco.vlgu.practic.Service.jwt;
+package inreco.vlgu.practic.security.jwt;
 
 import java.util.Date;
 
-import inreco.vlgu.practic.Service.UserDetailsImpl;
+import inreco.vlgu.practic.security.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package inreco.vlgu.practic.Controllers;
+package inreco.vlgu.practic.controllers;
 
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,20 +14,20 @@ public class TestController {
         return "Public Content.";
     }
 
-    @GetMapping("/user")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @GetMapping("/client")
+   // @PreAuthorize("hasRole('client') or hasRole('master') or hasRole('admin')")
     public String userAccess() {
-        return "User Content.";
+        return "Client Content.";
     }
 
-    @GetMapping("/mod")
-    @PreAuthorize("hasRole('MODERATOR')")
+    @GetMapping("/master")
+   // @PreAuthorize("hasRole('master')")
     public String moderatorAccess() {
-        return "Moderator Board.";
+        return "Master Content.";
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
+   // @PreAuthorize("hasRole('admin')")
     public String adminAccess() {
         return "Admin Board.";
     }

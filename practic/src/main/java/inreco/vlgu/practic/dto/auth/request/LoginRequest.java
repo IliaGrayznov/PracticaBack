@@ -1,15 +1,11 @@
-package inreco.vlgu.practic.payload.request;
+package inreco.vlgu.practic.dto.auth.request;
 
-import java.util.Set;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
 
-public class SignupRequest {
+public class LoginRequest {
     @NotBlank
     private String username;
-
-
-    private Set<String> role;
 
     @NotBlank
     private String password;
@@ -22,20 +18,11 @@ public class SignupRequest {
         this.username = username;
     }
 
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Set<String> getRole() {
-        return this.role;
-    }
-
-    public void setRole(Set<String> role) {
-        this.role = role;
     }
 }

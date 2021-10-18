@@ -1,4 +1,4 @@
-package inreco.vlgu.practic.Service.jwt;
+package inreco.vlgu.practic.security.jwt;
 
 import java.io.IOException;
 

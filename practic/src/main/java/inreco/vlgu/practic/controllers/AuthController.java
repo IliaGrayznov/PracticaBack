@@ -1,4 +1,4 @@
-package inreco.vlgu.practic.Controllers;
+package inreco.vlgu.practic.controllers;
 
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 
-
+import inreco.vlgu.practic.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,12 +22,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import inreco.vlgu.practic.Repository.*;
-import inreco.vlgu.practic.payload.request.*;
-import inreco.vlgu.practic.payload.response.*;
-import inreco.vlgu.practic.Service.jwt.*;
-import inreco.vlgu.practic.Service.*;
-import inreco.vlgu.practic.Model.*;
+import inreco.vlgu.practic.repository.*;
+import inreco.vlgu.practic.dto.auth.request.*;
+import inreco.vlgu.practic.dto.auth.response.*;
+import inreco.vlgu.practic.security.jwt.*;
+import inreco.vlgu.practic.model.*;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)

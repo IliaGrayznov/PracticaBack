@@ -1,4 +1,4 @@
-package inreco.vlgu.practic.Service.jwt;
+package inreco.vlgu.practic.security.jwt;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import inreco.vlgu.practic.Service.UserDetailsServiceImpl;
+import inreco.vlgu.practic.security.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

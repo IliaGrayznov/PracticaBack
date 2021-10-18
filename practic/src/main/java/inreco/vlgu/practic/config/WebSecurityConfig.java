@@ -1,8 +1,8 @@
-package inreco.vlgu.practic;
+package inreco.vlgu.practic.config;
 
-import inreco.vlgu.practic.Service.UserDetailsServiceImpl;
-import inreco.vlgu.practic.Service.jwt.AuthEntryPointJwt;
-import inreco.vlgu.practic.Service.jwt.AuthTokenFilter;
+import inreco.vlgu.practic.security.UserDetailsServiceImpl;
+import inreco.vlgu.practic.security.jwt.AuthEntryPointJwt;
+import inreco.vlgu.practic.security.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,7 +59,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
+                //.antMatchers("/api/test/**").permitAll()
+                .antMatchers("/api/test/client").hasRole("client")
+                .antMatchers("/api/test/master").hasRole("master")
+                .antMatchers("/api/test/admin").hasRole("admin")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -1,6 +1,6 @@
-package inreco.vlgu.practic.Repository;
+package inreco.vlgu.practic.repository;
 
-import inreco.vlgu.practic.Model.User;
+import inreco.vlgu.practic.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

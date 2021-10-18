@@ -1,11 +1,11 @@
-package inreco.vlgu.practic.Service;
+package inreco.vlgu.practic.security;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import inreco.vlgu.practic.Model.User;
+import inreco.vlgu.practic.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

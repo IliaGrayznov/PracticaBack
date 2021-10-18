@@ -1,4 +1,4 @@
-package inreco.vlgu.practic.Model;
+package inreco.vlgu.practic.model;
 
 
 public enum ERole {
