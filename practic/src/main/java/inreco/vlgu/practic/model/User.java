@@ -1,5 +1,8 @@
 package inreco.vlgu.practic.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +28,18 @@ public class User {
 
     @OneToMany (fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
+    @JsonBackReference
     private List<Car> cars;
+
+    @OneToMany (fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    @JsonBackReference
+    private List<Request> clientRequests;
+
+    @OneToMany (fetch = FetchType.LAZY)
+    @JoinColumn(name = "master_id")
+    @JsonBackReference
+    private List<Request> masterRequests;
 
     public User() {
     }
@@ -74,6 +88,22 @@ public class User {
 
     public void setCars(List<Car> cars) {
         this.cars = cars;
+    }
+
+    public List<Request> getClientRequests() {
+        return clientRequests;
+    }
+
+    public void setClientRequests(List<Request> clientRequests) {
+        this.clientRequests = clientRequests;
+    }
+
+    public List<Request> getMasterRequests() {
+        return masterRequests;
+    }
+
+    public void setMasterRequests(List<Request> masterRequests) {
+        this.masterRequests = masterRequests;
     }
 
     @Override

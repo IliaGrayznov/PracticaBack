@@ -3,6 +3,7 @@ package inreco.vlgu.practic.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "number", unique = true)
     private String number;
@@ -23,14 +24,13 @@ public class Car {
     private String model;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "cars" ,"hibernateLazyInitializer", "handler" }, allowSetters = true)
-    @JsonBackReference
+    @JsonManagedReference
     private User owner;
 
     public Car() {
     }
 
-    public Car(Integer id, String number, String mark, String model, User user) {
+    public Car(Long id, String number, String mark, String model, User user) {
         this.id = id;
         this.number = number;
         this.mark = mark;
@@ -38,11 +38,11 @@ public class Car {
         this.owner = user;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -77,4 +77,15 @@ public class Car {
     public void setOwner(User user) {
         this.owner = user;
     }
+
+   /* @Override
+    public String toString() {
+        return  "Car{" +
+                "id=" + id +
+                ", number='" + number + '\'' +
+                ", mark='" + mark + '\'' +
+                ", model='" + model + '\'' +
+                '}';
+    }*/
+
 }

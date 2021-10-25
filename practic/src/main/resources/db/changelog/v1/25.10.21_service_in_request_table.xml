@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="service_in_request_1" author="Thor">
+        <createTable tableName="service_in_request">
+            <column name="id" type="bigserial" autoIncrement="true" >
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_service_in_request_id" />
+            </column>
+            <column name="request_id" type="bigserial">
+                <constraints nullable="false" foreignKeyName="fk_request_id" references="request(id)"/>
+            </column>
+            <column name="service_id" type="bigserial">
+                <constraints nullable="false" foreignKeyName="fk_service_id" references="service_list(id)"/>
+            </column>
+            <column name="count" type="int">
+                <constraints nullable="true" unique="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="service_in_request_2" author="Thor">
+        <insert tableName="service_in_request">
+            <column name="request_id">1</column>
+            <column name="service_id">1</column>
+        </insert>
+        <insert tableName="service_in_request">
+            <column name="request_id">1</column>
+            <column name="service_id">2</column>
+        </insert>
+        <insert tableName="service_in_request">
+            <column name="request_id">1</column>
+            <column name="service_id">3</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,4 +1,4 @@
-package inreco.vlgu.practic.dto.auth.car;
+package inreco.vlgu.practic.dto;
 
 import inreco.vlgu.practic.model.Car;
 

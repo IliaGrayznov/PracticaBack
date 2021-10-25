@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="service_list_1" author="Thor">
+        <createTable tableName="service_list">
+            <column name="id" type="bigserial" autoIncrement="true" >
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_service_list_id" />
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" unique="false" />
+            </column>
+            <column name="description" type="clob">
+                <constraints nullable="true" unique="false" />
+            </column>
+            <column name="price" type="double">
+                <constraints nullable="true" unique="false" />
+            </column>
+            <column name="product_id" type="bigserial">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="service_list_2" author="Thor">
+        <insert tableName="service_list">
+            <column name="name">oil change</column>
+            <column name="description">oil change description</column>
+            <column name="price">66</column>
+            <column name="product_id">0</column>
+        </insert>
+        <insert tableName="service_list">
+            <column name="name">diagnostics</column>
+            <column name="description">diagnostics description</column>
+            <column name="price">100</column>
+            <column name="product_id">0</column>
+        </insert>
+        <insert tableName="service_list">
+            <column name="name">do nothing</column>
+            <column name="description">do nothing description</column>
+            <column name="price">6666</column>
+            <column name="product_id">0</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
