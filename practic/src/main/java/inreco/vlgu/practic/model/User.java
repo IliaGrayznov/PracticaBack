@@ -2,6 +2,7 @@ package inreco.vlgu.practic.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,10 +23,14 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany (fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private List<Car> cars;
+
     public User() {
     }
 
-    public User(String username,  String password) {
+    public User( String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -61,6 +66,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
     }
 
     @Override

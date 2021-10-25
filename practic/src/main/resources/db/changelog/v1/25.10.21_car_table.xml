@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="car_1" author="Thor">
+        <createTable tableName="car">
+            <column name="id" type="bigserial" autoIncrement="true" >
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_car_id" />
+            </column>
+            <column name="number" type="varchar(100)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="mark" type="varchar(100)">
+                <constraints nullable="false" unique="false" />
+            </column>
+            <column name="model" type="varchar(100)">
+                <constraints nullable="false" unique="false" />
+            </column>
+            <column name="owner_id" type="bigserial">
+                <constraints nullable="false" foreignKeyName="fk_owner" references="user(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="car_2" author="Thor">
+        <insert tableName="car">
+            <column name="number">a777kd</column>
+            <column name="mark">lada</column>
+            <column name="model">vedro</column>
+            <column name="owner_id">2</column>
+        </insert>
+        <insert tableName="car">
+            <column name="number">a666dd</column>
+            <column name="mark">merse</column>
+            <column name="model">rojec</column>
+            <column name="owner_id">2</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
