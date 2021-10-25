@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
@@ -51,7 +51,7 @@ public class TestController {
 
     @GetMapping("/master")
    // @PreAuthorize("hasRole('master')")
-    public String moderatorAccess() {
+    public String masterAccess() {
         return "Master Content.";
     }
 
