@@ -1,9 +1,9 @@
-package inreco.vlgu.practic.dto;
+package inreco.vlgu.practic.dto.request;
 
 
 import javax.validation.constraints.NotBlank;
 
-public class InputRequest {
+public class InputRequestID {
     @NotBlank
     private Long id;
 

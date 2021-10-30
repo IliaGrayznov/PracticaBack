@@ -25,15 +25,19 @@ public class ServiceList {
     @Column(name = "product_id")
     private Integer product_id;
 
+    @ManyToOne
+    ServiceType type;
+
     public ServiceList() {
     }
 
-    public ServiceList(long id, String name, String description, Double price, Integer product_id) {
+    public ServiceList(long id, String name, String description, Double price, Integer product_id, ServiceType type) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.product_id = product_id;
+        this.type = type;
     }
 
     public long getId() {
@@ -74,6 +78,14 @@ public class ServiceList {
 
     public void setProduct_id(Integer product_id) {
         this.product_id = product_id;
+    }
+
+    public ServiceType getType() {
+        return type;
+    }
+
+    public void setType(ServiceType type) {
+        this.type = type;
     }
 }
 

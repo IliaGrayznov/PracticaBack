@@ -1,14 +1,14 @@
-package inreco.vlgu.practic.dto;
+package inreco.vlgu.practic.dto.request;
 
 import inreco.vlgu.practic.model.Car;
 import inreco.vlgu.practic.model.Request;
 
 import java.util.List;
 
-public class RequestResponse {
+public class RequestListResponse {
     private List<Request> requests;
 
-    public RequestResponse(List<Request> requests) {
+    public RequestListResponse(List<Request> requests) {
         this.requests = requests;
     }
 

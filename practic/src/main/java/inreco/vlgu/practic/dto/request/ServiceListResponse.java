@@ -1,15 +1,15 @@
-package inreco.vlgu.practic.dto;
+package inreco.vlgu.practic.dto.request;
 
 import inreco.vlgu.practic.model.Car;
 import inreco.vlgu.practic.model.ServiceList;
 
 import java.util.List;
 
-public class ServiceResponse {
+public class ServiceListResponse {
     private List<ServiceList> services;
 
 
-    public ServiceResponse(List<ServiceList> services) {
+    public ServiceListResponse(List<ServiceList> services) {
         this.services = services;
     }
 

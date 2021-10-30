@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="service_type_1" author="Thor">
+        <createTable tableName="service_type">
+            <column name="id" type="int" autoIncrement="true" >
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_service_type_id" />
+            </column>
+            <column name="name" type="varchar(100)"></column>
+            <column name="sub_type_id" type="int">
+                <constraints foreignKeyName="fk_subtype_id" references="service_sub_type(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="service_type_2" author="Thor">
+        <insert tableName="service_type">
+            <column name="name">Diagnostic</column>
+            <column name="sub_type_id" >1</column>
+        </insert>
+        <insert tableName="service_type">
+            <column name="name">Diagnostic</column>
+            <column name="sub_type_id" >2</column>
+        </insert>
+        <insert tableName="service_type">
+            <column name="name">Diagnostic</column>
+            <column name="sub_type_id" >3</column>
+        </insert>
+        <insert tableName="service_type">
+            <column name="name">Tire fitting</column>
+        </insert>
+        <insert tableName="service_type">
+            <column name="name">Change</column>
+            <column name="sub_type_id" >2</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

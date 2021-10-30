@@ -20,7 +20,7 @@
             <column name="model" type="varchar(100)">
                 <constraints nullable="false" unique="false" />
             </column>
-            <column name="owner_id" type="bigserial">
+            <column name="owner_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_owner" references="user(id)"/>
             </column>
         </createTable>

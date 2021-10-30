@@ -36,6 +36,9 @@
         <insert tableName="request_status">
             <column name="name">Finished</column>
         </insert>
+        <insert tableName="request_status">
+            <column name="name">Rejected</column>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

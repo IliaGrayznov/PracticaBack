@@ -1,6 +1,7 @@
 package inreco.vlgu.practic.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class User {
     @Column(name = "username", unique = true)
     private String username;
     @Column(name = "password",nullable = false)
+    @JsonIgnore
     private String password;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_role",

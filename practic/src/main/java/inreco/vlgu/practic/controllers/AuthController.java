@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 
+import inreco.vlgu.practic.dto.MessageResponse;
 import inreco.vlgu.practic.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -120,5 +121,25 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @PostMapping("/Msignup")
+    public ResponseEntity<?> registerMaster(@Valid @RequestBody SignupRequest signUpRequest) {
+        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Username is already taken!"));
+        }
+        // Create new user's account
+        User user = new User(signUpRequest.getUsername(),
+                encoder.encode(signUpRequest.getPassword()));
+
+        Set<Role> roles = new HashSet<>();
+        Role master = roleRepository.findByName(ERole.ROLE_master)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));;
+        roles.add(master);
+        user.setRoles(roles);
+        userRepository.save(user);
+        return ResponseEntity.ok(new MessageResponse("Master registered successfully!"));
     }
 }

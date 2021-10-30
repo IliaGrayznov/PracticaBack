@@ -6,13 +6,16 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <include file="/db/changelog/v1/30.10.21_service_sub_type_table.xml" />
+    <include file="/db/changelog/v1/30.10.21_service_type_table.xml" />
     <include file="/db/changelog/v1/18.10.21_user_table.xml" />
     <include file="/db/changelog/v1/18.10.21_role_table.xml" />
     <include file="/db/changelog/v1/18.10.21_user-role_table.xml" />
     <include file="/db/changelog/v1/25.10.21_car_table.xml" />
-    <include file="/db/changelog/v1/25.10.21_service_list_table.xml" />
-    <include file="/db/changelog/v1/25.10.21_request_status_table.xml" />
-    <include file="/db/changelog/v1/25.10.21_request_table.xml" />
+    <include file="/db/changelog/v1/30.10.21_service_list_table.xml" />
+    <include file="/db/changelog/v1/30.10.21_request_status_table.xml" />
+    <include file="/db/changelog/v1/30.10.21_request_table.xml" />
     <include file="/db/changelog/v1/25.10.21_service_in_request_table.xml" />
+
 
 </databaseChangeLog>

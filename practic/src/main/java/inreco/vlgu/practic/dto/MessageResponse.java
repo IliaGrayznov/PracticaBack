@@ -1,4 +1,4 @@
-package inreco.vlgu.practic.dto.auth.response;
+package inreco.vlgu.practic.dto;
 
 public class MessageResponse {
     private String message;

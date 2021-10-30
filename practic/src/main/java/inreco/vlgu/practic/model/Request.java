@@ -3,6 +3,7 @@ package inreco.vlgu.practic.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,9 @@ public class Request {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
+
+    @Column(name = "date")
+    private Date date;
 
     @ManyToOne
     @JsonManagedReference
@@ -38,13 +42,14 @@ public class Request {
     public Request() {
     }
 
-    public Request(long id, User client, User master, Car car, RequestStatus status, List<ServiceList> services) {
+    public Request(long id, User client, User master, Car car, RequestStatus status, List<ServiceList> services, Date date) {
         this.id = id;
         this.client = client;
         this.master = master;
         this.car = car;
         this.status = status;
         this.services = services;
+        this.date=date;
     }
 
     public long getId() {
@@ -93,6 +98,14 @@ public class Request {
 
     public void setServices(List<ServiceList> services) {
         this.services = services;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
 

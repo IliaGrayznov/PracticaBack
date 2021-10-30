@@ -20,8 +20,11 @@
             <column name="price" type="double">
                 <constraints nullable="true" unique="false" />
             </column>
-            <column name="product_id" type="bigserial">
+            <column name="product_id" type="bigint">
                 <constraints nullable="true" />
+            </column>
+            <column name="type_id" type="int">
+                <constraints  foreignKeyName="fk_type_status" references="service_type(id)"/>
             </column>
         </createTable>
     </changeSet>
@@ -32,18 +35,21 @@
             <column name="description">oil change description</column>
             <column name="price">66</column>
             <column name="product_id">0</column>
+            <column name="type_id">null</column>
         </insert>
         <insert tableName="service_list">
-            <column name="name">diagnostics</column>
-            <column name="description">diagnostics description</column>
+            <column name="name">Brake system diagnostic</column>
+            <column name="description">Brake system diagnostics description</column>
             <column name="price">100</column>
             <column name="product_id">0</column>
+            <column name="type_id">3</column>
         </insert>
         <insert tableName="service_list">
-            <column name="name">do nothing</column>
-            <column name="description">do nothing description</column>
+            <column name="name">Change something in engine nothing</column>
+            <column name="description">Change something in engine description</column>
             <column name="price">6666</column>
             <column name="product_id">0</column>
+            <column name="type_id">5</column>
         </insert>
     </changeSet>
 
