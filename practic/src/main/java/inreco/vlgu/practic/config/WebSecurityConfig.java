@@ -53,12 +53,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .authorizeRequests().antMatchers("/api/auth/**", "/api/service/all", "/swagger-ui/**",  "/v2/api-docs",
+                "/swagger-resources",
+                "/swagger-resources/**",
+                "/configuration/ui",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**","/v3/api-docs/**",
+                "/swagger-ui/**").permitAll()
                 .antMatchers("/api/test/client", "/api/car/register", "/api/car/cars", "/api/request/create", "/api/request/userS").hasRole("client")
                 .antMatchers("/api/test/master", "/api/request/aссeptWait","/api/request/acceptRequest", "/api/request/masterS", "/api/request/rejectRequest",
                         "/api/request/startService", "/api/request/finishService").hasRole("master")

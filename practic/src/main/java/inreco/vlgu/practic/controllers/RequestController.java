@@ -33,7 +33,7 @@ public class RequestController {
     @PostMapping("/create")
     public ResponseEntity<?> createRequest(@Valid @RequestBody InputRegisterRequest registerRequest, Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
-        if(requestService.createRequest(user,registerRequest.getCar_id(),registerRequest.getDate(),registerRequest.getServices()))
+        if(requestService.createRequest(user,registerRequest.getCar_id(),registerRequest.getDate(),registerRequest.getIdS1(),registerRequest.getIdS2(), registerRequest.getIdS3()))
             return ResponseEntity.ok(new MessageResponse("Request registered successfully!"));
         else
             return ResponseEntity

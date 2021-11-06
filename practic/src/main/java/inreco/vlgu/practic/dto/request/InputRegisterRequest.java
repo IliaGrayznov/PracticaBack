@@ -9,12 +9,18 @@ public class InputRegisterRequest {
 
     private Date date;
 
-    private List<Long> services;
+    private long idS1;
 
-    public InputRegisterRequest(long car_id, Date date, List<Long> services) {
+    private long idS2;
+
+    private long idS3;
+
+    public InputRegisterRequest(long car_id, Date date, long idS1, long idS2, long idS3) {
         this.car_id = car_id;
         this.date = date;
-        this.services=services;
+        this.idS1 = idS1;
+        this.idS2 = idS2;
+        this.idS3 = idS3;
     }
 
     public long getCar_id() {
@@ -33,11 +39,27 @@ public class InputRegisterRequest {
         this.date = date;
     }
 
-    public List<Long> getServices() {
-        return services;
+    public long getIdS1() {
+        return idS1;
     }
 
-    public void setServices(List<Long> services) {
-        this.services = services;
+    public void setIdS1(long idS1) {
+        this.idS1 = idS1;
+    }
+
+    public long getIdS2() {
+        return idS2;
+    }
+
+    public void setIdS2(long idS2) {
+        this.idS2 = idS2;
+    }
+
+    public long getIdS3() {
+        return idS3;
+    }
+
+    public void setIdS3(long idS3) {
+        this.idS3 = idS3;
     }
 }

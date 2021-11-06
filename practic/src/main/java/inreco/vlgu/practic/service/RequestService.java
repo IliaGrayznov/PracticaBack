@@ -29,7 +29,14 @@ public class RequestService {
     RequestStatusRepository requestStatusRepository;
 
     @Transactional
-    public boolean createRequest(User client, long id_car, Date date, List<Long> services)  {
+    public boolean createRequest(User client, long id_car, Date date, Long idS1, Long idS2, Long idS3)  {
+        List<Long> services = new ArrayList<>();
+        if(idS1!=0)
+            services.add(idS1);
+        if(idS2!=0)
+            services.add(idS2);
+        if(idS3!=0)
+            services.add(idS3);
         Request r = new Request(); List<ServiceList> serviceLists = new ArrayList<>();
         r.setCar(carRepository.getById(id_car)); r.setClient(client); r.setStatus(requestStatusRepository.getById(2)); r.setDate(date); r.setMaster(null);
         for (long id:
