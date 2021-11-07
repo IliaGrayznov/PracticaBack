@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/**", "/api/service/all", "/swagger-ui/**",  "/v2/api-docs",
+                .authorizeRequests().antMatchers("/api/auth/**", "/api/service/available", "/swagger-ui/**",  "/v2/api-docs",
                 "/swagger-resources",
                 "/swagger-resources/**",
                 "/configuration/ui",
@@ -69,9 +69,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/webjars/**","/v3/api-docs/**",
                 "/swagger-ui/**").permitAll()
                 .antMatchers("/api/test/client", "/api/car/register", "/api/car/cars", "/api/request/create", "/api/request/userS").hasRole("client")
-                .antMatchers("/api/test/master", "/api/request/aссeptWait","/api/request/acceptRequest", "/api/request/masterS", "/api/request/rejectRequest",
+                .antMatchers("/api/test/master" ,"/api/request/acceptRequest", "/api/request/masterS", "/api/request/rejectRequest",
                         "/api/request/startService", "/api/request/finishService").hasRole("master")
-                .antMatchers("/api/test/admin", "/api/auth/Msignup",  "/api/car/allCars", "/api/request/all", "/api/service/create", "/api/service/update").hasRole("admin")
+                .antMatchers("/api/test/admin", "/api/auth/Msignup",  "/api/car/allCars", "/api/request/all", "/api/service/create", "/api/service/update",
+                        "/api/service/all", "/api/service/delete").hasRole("admin")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

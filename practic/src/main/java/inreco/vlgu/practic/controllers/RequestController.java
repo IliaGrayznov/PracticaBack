@@ -67,9 +67,9 @@ public class RequestController {
         return ResponseEntity.ok(new ServiceListResponse(requestService.getOneRequest(inputRequestID.getId()).getServices()));
     }
 
-    @GetMapping("/aссeptWait")
-    public ResponseEntity<?> acceptWaitRequests() {
-        return ResponseEntity.ok(requestService.getRequestsByStatus(2));
+    @GetMapping("/requestByStatus/{id}")
+    public ResponseEntity<?> acceptWaitRequests(@PathVariable("id") int id) {
+        return ResponseEntity.ok(requestService.getRequestsByStatus(id));
     }
 
     @PostMapping("/acceptRequest")

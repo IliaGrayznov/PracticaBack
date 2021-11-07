@@ -12,7 +12,7 @@
     <include file="/db/changelog/v1/18.10.21_role_table.xml" />
     <include file="/db/changelog/v1/18.10.21_user-role_table.xml" />
     <include file="/db/changelog/v1/25.10.21_car_table.xml" />
-    <include file="/db/changelog/v1/30.10.21_service_list_table.xml" />
+    <include file="/db/changelog/v1/06.11.21_service_list_table.xml" />
     <include file="/db/changelog/v1/30.10.21_request_status_table.xml" />
     <include file="/db/changelog/v1/30.10.21_request_table.xml" />
     <include file="/db/changelog/v1/25.10.21_service_in_request_table.xml" />

@@ -25,6 +25,9 @@ public class ServiceList {
     @Column(name = "product_id")
     private Integer product_id;
 
+    @Column(name = "deleted")
+    private boolean deleted;
+
     @ManyToOne
     ServiceType type;
 
@@ -80,6 +83,14 @@ public class ServiceList {
         this.product_id = product_id;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
     public ServiceType getType() {
         return type;
     }
@@ -87,5 +98,7 @@ public class ServiceList {
     public void setType(ServiceType type) {
         this.type = type;
     }
+
+
 }
 

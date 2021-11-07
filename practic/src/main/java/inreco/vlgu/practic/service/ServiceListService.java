@@ -46,9 +46,26 @@ public class ServiceListService {
         return true;
     }
 
+    @Transactional
+    public boolean deleteService(Long id)  {
+        ServiceList s = serviceListRepository.getById(id);
+        s.setDeleted(true);
+        try{
+            serviceListRepository.save(s);
+        }
+        catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
 
     public List<ServiceList> getAllServices(){
         return serviceListRepository.findAll();
+    }
+
+    public List<ServiceList> getAvailableServices(){
+        return serviceListRepository.getAvailableServices();
     }
 
 

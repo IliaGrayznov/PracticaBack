@@ -26,6 +26,7 @@
             <column name="type_id" type="int">
                 <constraints  foreignKeyName="fk_type_status" references="service_type(id)"/>
             </column>
+            <column name="deleted" type="boolean"></column>
         </createTable>
     </changeSet>
 
@@ -36,6 +37,7 @@
             <column name="price">66</column>
             <column name="product_id">0</column>
             <column name="type_id">null</column>
+            <column name="deleted">false</column>
         </insert>
         <insert tableName="service_list">
             <column name="name">Brake system diagnostic</column>
@@ -43,6 +45,7 @@
             <column name="price">100</column>
             <column name="product_id">0</column>
             <column name="type_id">3</column>
+            <column name="deleted">false</column>
         </insert>
         <insert tableName="service_list">
             <column name="name">Change something in engine nothing</column>
@@ -50,6 +53,7 @@
             <column name="price">6666</column>
             <column name="product_id">0</column>
             <column name="type_id">5</column>
+            <column name="deleted">false</column>
         </insert>
     </changeSet>
 
