@@ -36,7 +36,7 @@
             <column name="description">oil change description</column>
             <column name="price">66</column>
             <column name="product_id">0</column>
-            <column name="type_id">null</column>
+            <column name="type_id">7</column>
             <column name="deleted">false</column>
         </insert>
         <insert tableName="service_list">

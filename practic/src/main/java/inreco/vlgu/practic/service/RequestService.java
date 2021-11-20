@@ -103,13 +103,31 @@ public class RequestService {
         return true;
     }
 
+    @Transactional
+    public boolean payService(long id_request)  {
+        Request r = requestRepository.getById(id_request);
+        r.setStatus(requestStatusRepository.getById(6));
+        try{
+            requestRepository.save(r);
+        }
+        catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
     public List<Request> getRequests()  {
         return requestRepository.findAll();
+    }
+
+    public List<Request> getMastersRequests(Long id)  {
+        return requestRepository.getMastersRequests(id);
     }
 
     public Request getOneRequest(long id)  {
         return requestRepository.getById(id);
     }
+
 
     public List<Request> getRequestsByStatus(Integer id_status)  {
         return requestRepository.getRequestsByStatus(id_status);

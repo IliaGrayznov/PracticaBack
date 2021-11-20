@@ -13,4 +13,7 @@ import java.util.List;
 public interface RequestRepository extends JpaRepository<Request, Long> {
     @Query("select r from Request r where r.status.id=:id")
     List<Request> getRequestsByStatus(@Param("id") Integer status_id);
+
+    @Query("select r from Request r where r.status.id<>7 and r.master.id=:id_m")
+    List<Request> getMastersRequests(@Param("id_m") Long master_id);
 }

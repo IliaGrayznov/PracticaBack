@@ -28,6 +28,9 @@
         <insert tableName="service_sub_type">
             <column name="name"> Transmission</column>
         </insert>
+        <insert tableName="service_sub_type">
+            <column name="name">none</column>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

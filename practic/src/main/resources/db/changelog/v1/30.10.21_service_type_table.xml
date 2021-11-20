@@ -33,10 +33,19 @@
         </insert>
         <insert tableName="service_type">
             <column name="name">Tire fitting</column>
+            <column name="sub_type_id" >5</column>
         </insert>
         <insert tableName="service_type">
             <column name="name">Change</column>
             <column name="sub_type_id" >2</column>
+        </insert>
+        <insert tableName="service_type">
+            <column name="name">none</column>
+            <column name="sub_type_id" >5</column>
+        </insert>
+        <insert tableName="service_type">
+            <column name="name">Change</column>
+            <column name="sub_type_id" >5</column>
         </insert>
     </changeSet>
 

@@ -51,7 +51,7 @@ public class RequestController {
     @GetMapping("/mastersS")
     public ResponseEntity<?> masterRequests(Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
-        List<Request> requests = user.getMasterRequests();
+        List<Request> requests = requestService.getMastersRequests(user.getId());
         return ResponseEntity.ok(new RequestListResponse(requests));
     }
 
@@ -62,9 +62,9 @@ public class RequestController {
     }
 
 
-    @GetMapping("/servicesIN") //   /{id}/services"
-    public ResponseEntity<?> servicesInRequests(@Valid @RequestBody InputRequestID inputRequestID) {
-        return ResponseEntity.ok(new ServiceListResponse(requestService.getOneRequest(inputRequestID.getId()).getServices()));
+    @GetMapping("/servicesIN/{id}")
+    public ResponseEntity<?> servicesInRequests(@PathVariable("id") int id) {
+        return ResponseEntity.ok(new ServiceListResponse(requestService.getOneRequest(id).getServices()));
     }
 
     @GetMapping("/requestByStatus/{id}")
@@ -89,7 +89,7 @@ public class RequestController {
         String s = requestService.rejectRequest(inputRequestID.getId(),user);
         switch (s){
             case "OK":
-                return ResponseEntity.ok(new MessageResponse("Request accepted successfully!"));
+                return ResponseEntity.ok(new MessageResponse("Request rejected successfully!"));
             case "BAD":
                 return ResponseEntity
                         .badRequest()
@@ -110,6 +110,16 @@ public class RequestController {
     public ResponseEntity<?> finishService(@Valid @RequestBody InputRequestID inputRequestID) {
         if(requestService.finishService(inputRequestID.getId()))
             return ResponseEntity.ok(new MessageResponse("Request finished successfully!"));
+        else
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Something went wrong("));
+    }
+
+    @PostMapping("/payService")
+    public ResponseEntity<?> payService(@Valid @RequestBody InputRequestID inputRequestID) {
+        if(requestService.payService(inputRequestID.getId()))
+            return ResponseEntity.ok(new MessageResponse("Request payed successfully!"));
         else
             return ResponseEntity
                     .badRequest()
