@@ -2,7 +2,7 @@ package inreco.vlgu.practic.dto.request;
 
 
 import java.util.Date;
-import java.util.List;
+
 
 public class InputRegisterRequest {
     private long car_id;

@@ -3,12 +3,9 @@ package inreco.vlgu.practic.service;
 import inreco.vlgu.practic.model.Car;
 import inreco.vlgu.practic.model.User;
 import inreco.vlgu.practic.repository.CarRepository;
-import inreco.vlgu.practic.repository.UserRepository;
-import inreco.vlgu.practic.security.UserDetailsImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

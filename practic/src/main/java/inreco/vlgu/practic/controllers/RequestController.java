@@ -10,6 +10,7 @@ import inreco.vlgu.practic.model.Request;
 import inreco.vlgu.practic.model.User;
 import inreco.vlgu.practic.repository.UserRepository;
 import inreco.vlgu.practic.service.RequestService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,8 @@ public class RequestController {
     RequestService requestService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createRequest(@Valid @RequestBody InputRegisterRequest registerRequest, Principal principal) {
+    @ApiOperation("Создает запрос на обслуживание")
+    public ResponseEntity<MessageResponse> createRequest(@Valid @RequestBody InputRegisterRequest registerRequest, Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
         if(requestService.createRequest(user,registerRequest.getCar_id(),registerRequest.getDate(),registerRequest.getIdS1(),registerRequest.getIdS2(), registerRequest.getIdS3()))
             return ResponseEntity.ok(new MessageResponse("Request registered successfully!"));
@@ -42,49 +44,63 @@ public class RequestController {
     }
 
     @GetMapping("/userS")
-    public ResponseEntity<?> userRequests(Principal principal) {
+    @ApiOperation("Возвращает все запросы на обслуживание, где клиент==текущей пользователь")
+    public ResponseEntity<RequestListResponse> userRequests(Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
         List<Request> requests = user.getClientRequests();
         return ResponseEntity.ok(new RequestListResponse(requests));
     }
 
     @GetMapping("/mastersS")
-    public ResponseEntity<?> masterRequests(Principal principal) {
+    @ApiOperation("Возвращает все запросы на обслуживание, где мастер==текущей пользователь")
+    public ResponseEntity<RequestListResponse> masterRequests(Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
         List<Request> requests = requestService.getMastersRequests(user.getId());
         return ResponseEntity.ok(new RequestListResponse(requests));
     }
 
     @GetMapping("/all")
-    public ResponseEntity<?> Requests() {
+    @ApiOperation("Возвращает все запросы на обслуживание")
+    public ResponseEntity<RequestListResponse> Requests() {
         List<Request> requests = requestService.getRequests();
         return ResponseEntity.ok(new RequestListResponse(requests));
     }
 
 
     @GetMapping("/servicesIN/{id}")
-    public ResponseEntity<?> servicesInRequests(@PathVariable("id") int id) {
+    @ApiOperation("Возвращает все работы, которые необходимо провести в рамках данного запроса")
+    public ResponseEntity<ServiceListResponse> servicesInRequests(@PathVariable("id") int id) {
         return ResponseEntity.ok(new ServiceListResponse(requestService.getOneRequest(id).getServices()));
     }
 
     @GetMapping("/requestByStatus/{id}")
+    @ApiOperation("Возвращает все запросы на обслуживание с определенным статусом(id)")
     public ResponseEntity<?> acceptWaitRequests(@PathVariable("id") int id) {
         return ResponseEntity.ok(requestService.getRequestsByStatus(id));
     }
 
     @PostMapping("/acceptRequest")
-    public ResponseEntity<?> acceptRequest(@Valid @RequestBody InputRequestID inputRequestID, Principal principal) {
+    @ApiOperation("Принимает запрос на обслуживание(изменяет статус) и назначает ему мастера==текущему пользователю")
+    public ResponseEntity<MessageResponse> acceptRequest(@Valid @RequestBody InputRequestID inputRequestID, Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
-        if(requestService.acceptRequest(user,inputRequestID.getId()))
-            return ResponseEntity.ok(new MessageResponse("Request accepted successfully!"));
-        else
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Something went wrong("));
+        String s = requestService.acceptRequest(user,inputRequestID.getId());
+        switch (s){
+            case "OK":
+                return ResponseEntity.ok(new MessageResponse("Request accepted successfully!"));
+            case "BAD":
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: Something went wrong("));
+            default:
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse(s));
+        }
     }
 
     @PostMapping("/rejectRequest")
-    public ResponseEntity<?> rejectRequest(@Valid @RequestBody InputRequestID inputRequestID, Principal principal) {
+    @ApiOperation("Отклоняет запрос на обслуживание(изменяет статус) и назначает ему мастера==текущему пользователю")
+    public ResponseEntity<MessageResponse> rejectRequest(@Valid @RequestBody InputRequestID inputRequestID, Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
         String s = requestService.rejectRequest(inputRequestID.getId(),user);
         switch (s){
@@ -102,22 +118,32 @@ public class RequestController {
     }
 
     @PostMapping("/startService")
-    public ResponseEntity<?> startService(@Valid @RequestBody InputRequestID inputRequestID) {
+    @ApiOperation("Изменяет статус запроса на обслуживание на Repair и возвращает все работы, которые необходимо провести в рамках данного запроса")
+    public ResponseEntity<ServiceListResponse> startService(@Valid @RequestBody InputRequestID inputRequestID) {
         return ResponseEntity.ok(new ServiceListResponse(requestService.service(inputRequestID.getId())));
     }
 
     @PostMapping("/finishService")
-    public ResponseEntity<?> finishService(@Valid @RequestBody InputRequestID inputRequestID) {
-        if(requestService.finishService(inputRequestID.getId()))
-            return ResponseEntity.ok(new MessageResponse("Request finished successfully!"));
-        else
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Something went wrong("));
+    @ApiOperation("Изменяет статус запроса на обслуживание на Repaired")
+    public ResponseEntity<MessageResponse> finishService(@Valid @RequestBody InputRequestID inputRequestID) {
+        String s = requestService.finishService(inputRequestID.getId());
+        switch (s){
+            case "OK":
+                return ResponseEntity.ok(new MessageResponse("Servicing finished successfully!"));
+            case "BAD":
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: Something went wrong("));
+            default:
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse(s));
+        }
     }
 
     @PostMapping("/payService")
-    public ResponseEntity<?> payService(@Valid @RequestBody InputRequestID inputRequestID) {
+    @ApiOperation("Изменяет статус запроса на обслуживание на Finished. Также тут ДОЛЖНА БЫТЬ оплата")
+    public ResponseEntity<MessageResponse> payService(@Valid @RequestBody InputRequestID inputRequestID) {
         if(requestService.payService(inputRequestID.getId()))
             return ResponseEntity.ok(new MessageResponse("Request payed successfully!"));
         else

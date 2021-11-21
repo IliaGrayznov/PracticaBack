@@ -9,6 +9,7 @@ import inreco.vlgu.practic.dto.car.CarResponse;
 import inreco.vlgu.practic.model.User;
 import inreco.vlgu.practic.repository.UserRepository;
 import inreco.vlgu.practic.service.CarService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,8 @@ public class CarController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> createCar(@Valid @RequestBody RegisterCarRequest registerCarRequest, Principal principal) {
+    @ApiOperation("регистрирует машину клиента в системе")
+    public ResponseEntity<MessageResponse> createCar(@Valid @RequestBody RegisterCarRequest registerCarRequest, Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
         if(carService.createCar(registerCarRequest.getNumber(), registerCarRequest.getMark(), registerCarRequest.getModel(),user))
             return ResponseEntity.ok(new MessageResponse("Car registered successfully!"));
@@ -41,12 +43,14 @@ public class CarController {
     }
 
     @GetMapping("/allCars")
-    public ResponseEntity<?> allCars() {
+    @ApiOperation("Возвращает список всех зарегистрированных в системе машин")
+    public ResponseEntity<CarResponse> allCars() {
         return ResponseEntity.ok(new CarResponse(carService.getCars()));
     }
 
     @GetMapping("/cars")
-    public ResponseEntity<?> userCars(Principal principal) {
+    @ApiOperation("Возвращает все машины клиента")
+    public ResponseEntity<CarResponse> userCars(Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
         return ResponseEntity.ok(new CarResponse(user.getCars()));
     }

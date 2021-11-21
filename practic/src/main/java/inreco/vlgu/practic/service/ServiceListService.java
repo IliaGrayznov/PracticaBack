@@ -3,6 +3,7 @@ package inreco.vlgu.practic.service;
 
 import inreco.vlgu.practic.model.ServiceList;
 
+import inreco.vlgu.practic.model.ServiceType;
 import inreco.vlgu.practic.repository.ServiceListRepository;
 import inreco.vlgu.practic.repository.ServiceTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,10 @@ public class ServiceListService {
 
     public List<ServiceList> getAllServices(){
         return serviceListRepository.findAll();
+    }
+
+    public List<ServiceType> getServicesType(){
+        return serviceTypeRepository.findAll();
     }
 
     public List<ServiceList> getAvailableServices(){

@@ -1,6 +1,6 @@
 package inreco.vlgu.practic.service;
 
-import inreco.vlgu.practic.model.Car;
+
 import inreco.vlgu.practic.model.Request;
 import inreco.vlgu.practic.model.ServiceList;
 import inreco.vlgu.practic.model.User;
@@ -54,16 +54,18 @@ public class RequestService {
     }
 
     @Transactional
-    public boolean acceptRequest(User master, long id_request)  {
+    public String acceptRequest(User master, long id_request)  {
         Request r = requestRepository.getById(id_request);
+        if(r.getStatus().getId()!=2)
+            return "You can't accept this request";
         r.setMaster(master); r.setStatus(requestStatusRepository.getById(3));
         try{
             requestRepository.save(r);
         }
         catch (Exception e){
-            return false;
+            return "BAD";
         }
-        return true;
+        return "OK";
     }
 
     @Transactional
@@ -91,16 +93,18 @@ public class RequestService {
     }
 
     @Transactional
-    public boolean finishService(long id_request)  {
+    public String finishService(long id_request)  {
         Request r = requestRepository.getById(id_request);
+        if(r.getStatus().getId()!=4)
+            return "You need to start servicing before finish it";
         r.setStatus(requestStatusRepository.getById(5));
         try{
             requestRepository.save(r);
         }
         catch (Exception e){
-            return false;
+            return "BAD";
         }
-        return true;
+        return "OK";
     }
 
     @Transactional

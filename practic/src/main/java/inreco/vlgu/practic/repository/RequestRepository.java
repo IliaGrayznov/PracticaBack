@@ -1,6 +1,6 @@
 package inreco.vlgu.practic.repository;
 
-import inreco.vlgu.practic.model.Car;
+
 import inreco.vlgu.practic.model.Request;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

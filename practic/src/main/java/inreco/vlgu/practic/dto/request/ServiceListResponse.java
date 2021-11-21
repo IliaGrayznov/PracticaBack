@@ -1,6 +1,6 @@
 package inreco.vlgu.practic.dto.request;
 
-import inreco.vlgu.practic.model.Car;
+
 import inreco.vlgu.practic.model.ServiceList;
 
 import java.util.List;

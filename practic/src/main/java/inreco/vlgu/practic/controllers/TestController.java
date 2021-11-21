@@ -1,14 +1,7 @@
 package inreco.vlgu.practic.controllers;
 
 
-import inreco.vlgu.practic.dto.request.ServiceListResponse;
-import inreco.vlgu.practic.repository.CarRepository;
-import inreco.vlgu.practic.repository.RequestRepository;
-import inreco.vlgu.practic.repository.ServiceListRepository;
-import inreco.vlgu.practic.repository.UserRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -17,17 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/test")
 public class TestController {
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    CarRepository carRepository;
-
-    @Autowired
-    ServiceListRepository serviceListRepository;
-
-    @Autowired
-    RequestRepository requestRepository;
 
     @GetMapping("/all")
     public String allAccess() {
