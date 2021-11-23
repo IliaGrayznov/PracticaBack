@@ -1,15 +1,24 @@
 package inreco.vlgu.practic.controllers;
 
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import inreco.vlgu.practic.dto.auth.response.MessageResponse;
+import inreco.vlgu.practic.dto.product.ProductCreateRequest;
+import inreco.vlgu.practic.dto.product.ProductResponse;
+import inreco.vlgu.practic.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
+
+    @Autowired
+    ProductService productService;
+
     @GetMapping("/all")
     public String allAccess() {
         return "Public Content.";
@@ -37,5 +46,21 @@ public class TestController {
     // @PreAuthorize("hasRole('manager')")
     public String managerAccess() {
         return "Manager Board.";
+    }
+
+    @GetMapping("/products")
+    // @PreAuthorize("hasRole('manager')")
+    public ResponseEntity<ProductResponse> products() {
+        return ResponseEntity.ok(new ProductResponse(productService.getProducts()));
+    }
+
+    @PostMapping("/product/create")
+    public ResponseEntity<MessageResponse> createProduct(@Valid @RequestBody ProductCreateRequest productCreateRequest) {
+        if(productService.createProduct(productCreateRequest))
+            return ResponseEntity.ok(new MessageResponse("Service created successfully!"));
+        else
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Something went wrong("));
     }
 }

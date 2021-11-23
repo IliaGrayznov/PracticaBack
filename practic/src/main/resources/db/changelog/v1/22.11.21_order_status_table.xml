@@ -17,7 +17,7 @@
         </createTable>
     </changeSet>
 
-    <!--name-->
+    <!--status-->
     <changeSet id="user_2" author="emiks">
         <insert tableName="order_status">
             <column name="name">cart</column>

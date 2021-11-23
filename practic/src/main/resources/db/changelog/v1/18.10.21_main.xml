@@ -14,5 +14,7 @@
     <include file="/db/changelog/v1/22.11.21_product_category_table.xml" />
     <include file="/db/changelog/v1/22.11.21_product_table.xml" />
     <include file="/db/changelog/v1/22.11.21_order_product_table.xml" />
+    <include file="/db/changelog/v1/23.11.21_product_category_table.xml" />
+    <include file="/db/changelog/v1/23.11.21_product_table.xml" />
 
 </databaseChangeLog>
