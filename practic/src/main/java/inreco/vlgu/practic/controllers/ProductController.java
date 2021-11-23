@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping("/api/product")
 public class ProductController {
 
     @Autowired
@@ -24,8 +24,9 @@ public class ProductController {
         return ResponseEntity.ok(new ProductResponse(productService.getProducts()));
     }
 
-    @PostMapping("/product/create")
-    public ResponseEntity<MessageResponse> createProduct(@Valid @RequestBody ProductCreateRequest productCreateRequest) {
+    @PostMapping("/create")
+    public ResponseEntity<MessageResponse> createProduct(@Valid @RequestBody
+                                                                     ProductCreateRequest productCreateRequest) {
         if(productService.createProduct(productCreateRequest))
             return ResponseEntity.ok(new MessageResponse("Продукт успешно добавлен в каталог!"));
         else

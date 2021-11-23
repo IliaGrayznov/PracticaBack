@@ -18,9 +18,11 @@ public class Order {
     private long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     User user;
 
     @ManyToOne
+    @JoinColumn(name = "status_id")
     OrderStatus orderStatus;
 
     public Order() {
