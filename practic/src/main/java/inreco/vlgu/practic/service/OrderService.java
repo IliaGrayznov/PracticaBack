@@ -1,10 +1,8 @@
 package inreco.vlgu.practic.service;
 
-import inreco.vlgu.practic.dto.order.OrderCreateRequest;
-import inreco.vlgu.practic.dto.product.ProductCreateRequest;
+import inreco.vlgu.practic.dto.order.OrderRequest;
 import inreco.vlgu.practic.model.Order;
 import inreco.vlgu.practic.model.OrderProduct;
-import inreco.vlgu.practic.model.Product;
 import inreco.vlgu.practic.model.User;
 import inreco.vlgu.practic.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +26,9 @@ public class OrderService {
     UserRepository userRepository;
 
     @Transactional
-    public boolean createOrder(OrderCreateRequest orderCreateRequest, User user)  {
+    public boolean addProductToCart(OrderRequest orderRequest, User user)  {
         // Создаем заказ с статусе "cart" и запись об этом в таблице "order", если у пользователя не создана корзина.
-        Order o = orderRepository.getUserCartOrders(user.getId());
+        Order o = orderRepository.getOrderCart(user.getId());
         if (o==null) {
             o = new Order();
             o.setUser(user);
@@ -45,15 +43,18 @@ public class OrderService {
             }
         }
 
-        // В заказ добавляем товар, с помощью которого создали заказ
-        OrderProduct op = new OrderProduct();
-        op.setOrder(o);
-        op.setProduct(
-                productRepository.getById(
-                        orderCreateRequest.getProduct_id()
-                )
-        );
-        op.setAmount_in_order(1);
+        // В op попробуем найти, есть ли уже в заказе такая позиция.
+        OrderProduct op = orderProductRepository.getOneProductInOrder(o.getId(), orderRequest.getProduct_id());
+        // В заказ добавляем товар. Если такой товар уже есть, то добавляем +1.
+        if (op!=null) {
+            op.setAmount_in_order(op.getAmount_in_order()+1);
+        } else {
+            op = new OrderProduct();
+            op.setOrder(o);
+            op.setProduct(productRepository.getById(orderRequest.getProduct_id())
+            );
+            op.setAmount_in_order(1);
+        }
         try{
             orderProductRepository.save(op);
         }
@@ -62,4 +63,15 @@ public class OrderService {
         }
         return true;
     }
+
+    /*@Transactional
+    public boolean deleteProductFromCart(OrderRequest orderRequest, User user)  {
+        //Проверяем, сколько товаров в корзине
+        //Если 1, то проверяем, есть ли еще в корзине товары
+        //Если товаров больше нет, то удаляем заказ
+        Order o = orderRepository.getUserCartOrders(user.getId());
+
+
+        return true;
+    }*/
 }

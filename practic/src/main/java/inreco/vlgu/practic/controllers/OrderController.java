@@ -2,13 +2,10 @@ package inreco.vlgu.practic.controllers;
 
 
 import inreco.vlgu.practic.dto.auth.response.MessageResponse;
-import inreco.vlgu.practic.dto.order.OrderCreateRequest;
-import inreco.vlgu.practic.dto.product.ProductCreateRequest;
-import inreco.vlgu.practic.dto.product.ProductResponse;
+import inreco.vlgu.practic.dto.order.OrderRequest;
 import inreco.vlgu.practic.model.User;
 import inreco.vlgu.practic.repository.UserRepository;
 import inreco.vlgu.practic.service.OrderService;
-import inreco.vlgu.practic.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,11 +22,11 @@ public class OrderController {
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping("/create")
-    public ResponseEntity<MessageResponse> createOrder(@Valid @RequestBody OrderCreateRequest orderCreateRequest,
+    @PostMapping("/add")
+    public ResponseEntity<MessageResponse> changeOrder(@Valid @RequestBody OrderRequest orderRequest,
                                                        Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
-        if(orderService.createOrder(orderCreateRequest, user))
+        if(orderService.addProductToCart(orderRequest, user))
             return ResponseEntity.ok(new MessageResponse("Продукт успешно добавлен в корзину!"));
         else
             return ResponseEntity

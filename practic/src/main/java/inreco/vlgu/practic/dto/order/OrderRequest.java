@@ -1,9 +1,9 @@
 package inreco.vlgu.practic.dto.order;
 
-public class OrderCreateRequest {
+public class OrderRequest {
     private long product_id;
 
-    public OrderCreateRequest() {
+    public OrderRequest() {
     }
 
     public long getProduct_id() {

@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select o from Order o where o.user.id=:id and o.orderStatus.id=1")
-    Order getUserCartOrders(@Param("id") long id);
+    Order getOrderCart(@Param("id") long id);
 }
