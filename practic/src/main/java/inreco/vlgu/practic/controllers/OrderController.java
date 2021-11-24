@@ -23,11 +23,23 @@ public class OrderController {
     UserRepository userRepository;
 
     @PostMapping("/add")
-    public ResponseEntity<MessageResponse> changeOrder(@Valid @RequestBody OrderRequest orderRequest,
+    public ResponseEntity<MessageResponse> addProductOrder(@Valid @RequestBody OrderRequest orderRequest,
                                                        Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
         if(orderService.addProductToCart(orderRequest, user))
             return ResponseEntity.ok(new MessageResponse("Продукт успешно добавлен в корзину!"));
+        else
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Ошибка: что-то пошло не так("));
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<MessageResponse> deleteProductOrder(@Valid @RequestBody OrderRequest orderRequest,
+                                                       Principal principal) {
+        User user = userRepository.findByUsername(principal.getName()).get();
+        if(orderService.deleteProductFromCart(orderRequest, user))
+            return ResponseEntity.ok(new MessageResponse("Продукт удален из корзины!"));
         else
             return ResponseEntity
                     .badRequest()

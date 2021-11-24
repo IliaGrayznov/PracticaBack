@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 public interface OrderProductRepository extends JpaRepository<OrderProduct, Long> {
-    /*@Query("select op from OrderProduct op where op.order.id=:id")
-    OrderProduct getAllProductsInOrder(@Param("id") long id);*/
     @Query("select op from OrderProduct op where op.order.id=:idO and op.product.id =:idP")
     OrderProduct getOneProductInOrder(@Param("idO") long idO, @Param("idP") long idP);
+    @Query()
+    List<OrderProduct> findAllByOrderId(@Param("idO") long idO);
 }

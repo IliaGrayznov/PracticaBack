@@ -2,6 +2,7 @@ package inreco.vlgu.practic.dto.order;
 
 public class OrderRequest {
     private long product_id;
+    private int amount;
 
     public OrderRequest() {
     }

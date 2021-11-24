@@ -64,14 +64,31 @@ public class OrderService {
         return true;
     }
 
-    /*@Transactional
+    @Transactional
     public boolean deleteProductFromCart(OrderRequest orderRequest, User user)  {
-        //Проверяем, сколько товаров в корзине
-        //Если 1, то проверяем, есть ли еще в корзине товары
-        //Если товаров больше нет, то удаляем заказ
-        Order o = orderRepository.getUserCartOrders(user.getId());
-
-
+        //Если этот товар последний в корзине и его количество 1 штука - удалить заказ (сначала товар, потом заказ).
+        //Если этого товара в корзине больше 1 штуки, уменьшить кол-во. Иначе удалить товар из корзины.
+        Order o = orderRepository.getOrderCart(user.getId());
+        OrderProduct op = orderProductRepository.getOneProductInOrder(o.getId(), orderRequest.getProduct_id());
+        List<OrderProduct> opList = orderProductRepository.findAllByOrderId(o.getId());
+        int amountOneProduct = op.getAmount_in_order();
+        if (opList.size()==1 && amountOneProduct==1) {
+            try {
+                orderProductRepository.delete(op);
+                orderRepository.delete(o);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        if (amountOneProduct > 1) {
+            op.setAmount_in_order(op.getAmount_in_order()-1);
+        } else {
+            try {
+                orderProductRepository.delete(op);
+            } catch (Exception e) {
+                return false;
+            }
+        }
         return true;
-    }*/
+    }
 }
