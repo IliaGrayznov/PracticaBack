@@ -3,6 +3,7 @@ package inreco.vlgu.practic.controllers;
 
 import inreco.vlgu.practic.dto.auth.response.MessageResponse;
 import inreco.vlgu.practic.dto.order.OrderRequest;
+import inreco.vlgu.practic.dto.product.ProductResponse;
 import inreco.vlgu.practic.model.User;
 import inreco.vlgu.practic.repository.UserRepository;
 import inreco.vlgu.practic.service.OrderService;
@@ -44,5 +45,17 @@ public class OrderController {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Ошибка: что-то пошло не так("));
+    }
+
+    @GetMapping("/confirm")
+    public ResponseEntity<ProductResponse> confirmAndShowOrder(Principal principal) {
+        User user = userRepository.findByUsername(principal.getName()).get();
+        return ResponseEntity.ok(new ProductResponse(orderService.confirmAndShowOrder(user)));
+    }
+
+    @GetMapping("/show")
+    public ResponseEntity<ProductResponse> showOrder(Principal principal) {
+        User user = userRepository.findByUsername(principal.getName()).get();
+        return ResponseEntity.ok(new ProductResponse(orderService.showOrder(user)));
     }
 }

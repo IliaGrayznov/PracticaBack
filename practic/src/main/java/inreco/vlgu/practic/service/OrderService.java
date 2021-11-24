@@ -3,6 +3,7 @@ package inreco.vlgu.practic.service;
 import inreco.vlgu.practic.dto.order.OrderRequest;
 import inreco.vlgu.practic.model.Order;
 import inreco.vlgu.practic.model.OrderProduct;
+import inreco.vlgu.practic.model.Product;
 import inreco.vlgu.practic.model.User;
 import inreco.vlgu.practic.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,5 +91,22 @@ public class OrderService {
             }
         }
         return true;
+    }
+
+
+
+    @Transactional
+    public List<Product> showOrder(User user)  {
+        Order o = orderRepository.getOrderCart(user.getId());
+        List<Product> opList = productRepository.getAllProductsInOrder(o.getId());
+        return opList;
+    }
+
+    @Transactional
+    public List<Product> confirmAndShowOrder(User user)  {
+        Order o = orderRepository.getOrderCart(user.getId());
+        List<Product> opList = productRepository.getAllProductsInOrder(o.getId());
+        o.setOrderStatus(orderStatusRepository.getById((long)2));
+        return opList;
     }
 }

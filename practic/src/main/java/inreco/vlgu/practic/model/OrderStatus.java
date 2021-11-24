@@ -18,11 +18,6 @@ public class OrderStatus {
     public OrderStatus() {
     }
 
-    public OrderStatus(long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     public long getId() {
         return id;
     }
