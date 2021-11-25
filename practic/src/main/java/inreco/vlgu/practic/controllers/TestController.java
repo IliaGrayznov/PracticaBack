@@ -1,15 +1,9 @@
 package inreco.vlgu.practic.controllers;
 
 
-import inreco.vlgu.practic.dto.auth.response.MessageResponse;
-import inreco.vlgu.practic.dto.product.ProductCreateRequest;
-import inreco.vlgu.practic.dto.product.ProductResponse;
 import inreco.vlgu.practic.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

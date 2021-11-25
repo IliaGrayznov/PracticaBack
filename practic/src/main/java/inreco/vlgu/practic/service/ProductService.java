@@ -1,10 +1,10 @@
 package inreco.vlgu.practic.service;
 
-import inreco.vlgu.practic.dto.order.OrderStatusRequest;
+import inreco.vlgu.practic.dto.product.ProductChangeRequest;
 import inreco.vlgu.practic.dto.product.ProductCreateRequest;
 import inreco.vlgu.practic.dto.product.ProductDeleteRequest;
-import inreco.vlgu.practic.model.Order;
 import inreco.vlgu.practic.model.Product;
+import inreco.vlgu.practic.model.User;
 import inreco.vlgu.practic.repository.ProductCategoryRepository;
 import inreco.vlgu.practic.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +37,28 @@ public class ProductService  {
         p.setProductCategory(
                 productCategoryRepository.getById(
                         productCreateRequest.getCategory_id()
+                )
+        );
+        try{
+            productRepository.save(p);
+        }
+        catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    @Transactional
+    public boolean changeProduct(ProductChangeRequest productChangeRequest)  {
+        Product p = productRepository.getById(productChangeRequest.getProduct_id());
+        p.setName(productChangeRequest.getName());
+        p.setDescription(productChangeRequest.getDescription());
+        p.setImg(productChangeRequest.getImg());
+        p.setPrice(productChangeRequest.getPrice());
+        p.setAmount_in_warehouse(productChangeRequest.getAmount_in_warehouse());
+        p.setProductCategory(
+                productCategoryRepository.getById(
+                        productChangeRequest.getCategory_id()
                 )
         );
         try{
