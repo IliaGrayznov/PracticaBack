@@ -1,6 +1,9 @@
 package inreco.vlgu.practic.service;
 
+import inreco.vlgu.practic.dto.order.OrderStatusRequest;
 import inreco.vlgu.practic.dto.product.ProductCreateRequest;
+import inreco.vlgu.practic.dto.product.ProductDeleteRequest;
+import inreco.vlgu.practic.model.Order;
 import inreco.vlgu.practic.model.Product;
 import inreco.vlgu.practic.repository.ProductCategoryRepository;
 import inreco.vlgu.practic.repository.ProductRepository;
@@ -20,7 +23,7 @@ public class ProductService  {
     ProductCategoryRepository productCategoryRepository;
 
     public List<Product> getProducts()  {
-        return productRepository.findAll();
+        return productRepository.findAllWithoutNotExist();
     }
 
     @Transactional
@@ -45,4 +48,15 @@ public class ProductService  {
         return true;
     }
 
+    @Transactional
+    public boolean deleteProduct(ProductDeleteRequest productDeleteRequest)  {
+        //Получить товар. Удалить его.
+        Product p = productRepository.getById(productDeleteRequest.getProduct_id());
+        try {
+            productRepository.delete(p);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 }

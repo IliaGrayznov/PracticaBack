@@ -3,6 +3,7 @@ package inreco.vlgu.practic.controllers;
 
 import inreco.vlgu.practic.dto.auth.response.MessageResponse;
 import inreco.vlgu.practic.dto.product.ProductCreateRequest;
+import inreco.vlgu.practic.dto.product.ProductDeleteRequest;
 import inreco.vlgu.practic.dto.product.ProductResponse;
 import inreco.vlgu.practic.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,17 @@ public class ProductController {
                                                                      ProductCreateRequest productCreateRequest) {
         if(productService.createProduct(productCreateRequest))
             return ResponseEntity.ok(new MessageResponse("Продукт успешно добавлен в каталог!"));
+        else
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Ошибка: что-то пошло не так("));
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<MessageResponse> deleteProduct(@Valid @RequestBody
+                                                                 ProductDeleteRequest productDeleteRequest) {
+        if(productService.deleteProduct(productDeleteRequest))
+            return ResponseEntity.ok(new MessageResponse("Продукт успешно удален из каталога!"));
         else
             return ResponseEntity
                     .badRequest()

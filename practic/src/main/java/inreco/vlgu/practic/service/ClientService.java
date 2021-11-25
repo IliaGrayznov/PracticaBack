@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Service
-public class CartService {
+public class ClientService {
     @Autowired
     OrderRepository orderRepository;
     @Autowired
@@ -29,7 +29,7 @@ public class CartService {
     @Transactional
     public boolean addProductToCart(OrderRequest orderRequest, User user)  {
         // Создаем заказ с статусе "cart" и запись об этом в таблице "order", если у пользователя не создана корзина.
-        Order o = orderRepository.getUserOrderCart(user.getId());
+        Order o = orderRepository.getUserOrderInStatusCart(user.getId());
         if (o==null) {
             o = new Order();
             o.setUser(user);
@@ -69,7 +69,7 @@ public class CartService {
     public boolean deleteProductFromCart(OrderRequest orderRequest, User user)  {
         //Если этот товар последний в корзине и его количество 1 штука - удалить заказ (сначала товар, потом заказ).
         //Если этого товара в корзине больше 1 штуки, уменьшить кол-во. Иначе удалить товар из корзины.
-        Order o = orderRepository.getUserOrderCart(user.getId());
+        Order o = orderRepository.getUserOrderInStatusCart(user.getId());
         OrderProduct op = orderProductRepository.getOneProductInOrder(o.getId(), orderRequest.getProduct_id());
         List<OrderProduct> opList = orderProductRepository.findAllByOrderId(o.getId());
         int amountOneProduct = op.getAmount_in_order();
@@ -93,20 +93,50 @@ public class CartService {
         return true;
     }
 
-
-
     @Transactional
     public List<Product> showCart(User user)  {
-        Order o = orderRepository.getUserOrderCart(user.getId());
+        Order o = orderRepository.getUserOrderInStatusCart(user.getId());
         List<Product> opList = productRepository.getAllProductsInOrder(o.getId());
         return opList;
     }
 
     @Transactional
-    public List<Product> confirmAndShowCart(User user)  {
-        Order o = orderRepository.getUserOrderCart(user.getId());
-        List<Product> opList = productRepository.getAllProductsInOrder(o.getId());
+    public boolean order(User user)  {
+        //Проверяем, есть ли указанные позиции в нужном количестве на складе.
+        //Берем каждый товар в корзине, его количество в заказе и проверяем, меньше или равен он количеству на складе.
+        //Если меньше или равен, то уменьшаем количество товаров на складе.
+        //Статус заказа меняется.
+        Order o = orderRepository.getUserOrderInStatusCart(user.getId());
+        List<OrderProduct> opList = orderProductRepository.findAllByOrderId(o.getId());
+        for (int i = 0; i < opList.size(); i++) {
+            OrderProduct op = opList.get(i);
+            Product p = op.getProduct();
+            int amountInOrder = op.getAmount_in_order();
+            int amountInWarehouse = p.getAmount_in_warehouse();
+            if (amountInOrder <= amountInWarehouse) {
+                p.setAmount_in_warehouse(amountInWarehouse-amountInOrder);
+                try {
+                    productRepository.save(p);
+                } catch (Exception e) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
         o.setOrderStatus(orderStatusRepository.getById((long)2));
-        return opList;
+        try {
+            orderRepository.save(o);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Transactional
+    public List<Order> showOrders(User user)  {
+        //Получаем список всех заказов пользователя
+        List<Order> oList = orderRepository.findAllByUserId(user.getId());
+        return oList;
     }
 }
