@@ -45,7 +45,7 @@ public class ServiceController {
     @PostMapping("/create")
     @ApiOperation("Создает новую услугу")
     public ResponseEntity<MessageResponse> createService(@Valid @RequestBody ServiceCreateRequest serviceCreateRequest) {
-        if(serviceListService.createService(serviceCreateRequest.getName(),serviceCreateRequest.getDescription(),serviceCreateRequest.getPrice(),serviceCreateRequest.getType_id()))
+        if(serviceListService.createService(serviceCreateRequest))
           return ResponseEntity.ok(new MessageResponse("Service created successfully!"));
         else
             return ResponseEntity
@@ -56,7 +56,7 @@ public class ServiceController {
     @PostMapping("/update")
     @ApiOperation("Изменяет цену услуги")
     public ResponseEntity<MessageResponse> upService(@Valid @RequestBody ServiceUpdateRequest serviceUpdateRequest) {
-        if(serviceListService.updateService(serviceUpdateRequest.getId(), serviceUpdateRequest.getPrice()))
+        if(serviceListService.updateService(serviceUpdateRequest))
           return ResponseEntity.ok(new MessageResponse("Service updated successfully!"));
         else
             return ResponseEntity
@@ -67,7 +67,7 @@ public class ServiceController {
     @PostMapping("/delete")
     @ApiOperation("Помечает улсугу как удаленную/недоступную")
     public ResponseEntity<MessageResponse> deleteService(@Valid @RequestBody ServiceRequestID serviceRequestID) {
-        if(serviceListService.deleteService(serviceRequestID.getId()))
+        if(serviceListService.deleteService(serviceRequestID))
             return ResponseEntity.ok(new MessageResponse("Service marked as deleted!"));
         else
             return ResponseEntity

@@ -83,7 +83,7 @@ public class RequestController {
     @ApiOperation("Принимает запрос на обслуживание(изменяет статус) и назначает ему мастера==текущему пользователю")
     public ResponseEntity<MessageResponse> acceptRequest(@Valid @RequestBody InputRequestID inputRequestID, Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
-        String s = requestService.acceptRequest(user,inputRequestID.getId());
+        String s = requestService.acceptRequest(user,inputRequestID);
         switch (s){
             case "OK":
                 return ResponseEntity.ok(new MessageResponse("Request accepted successfully!"));
@@ -102,7 +102,7 @@ public class RequestController {
     @ApiOperation("Отклоняет запрос на обслуживание(изменяет статус) и назначает ему мастера==текущему пользователю")
     public ResponseEntity<MessageResponse> rejectRequest(@Valid @RequestBody InputRequestID inputRequestID, Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
-        String s = requestService.rejectRequest(inputRequestID.getId(),user);
+        String s = requestService.rejectRequest(inputRequestID,user);
         switch (s){
             case "OK":
                 return ResponseEntity.ok(new MessageResponse("Request rejected successfully!"));
@@ -120,13 +120,13 @@ public class RequestController {
     @PostMapping("/startService")
     @ApiOperation("Изменяет статус запроса на обслуживание на Repair и возвращает все работы, которые необходимо провести в рамках данного запроса")
     public ResponseEntity<ServiceListResponse> startService(@Valid @RequestBody InputRequestID inputRequestID) {
-        return ResponseEntity.ok(new ServiceListResponse(requestService.service(inputRequestID.getId())));
+        return ResponseEntity.ok(new ServiceListResponse(requestService.service(inputRequestID)));
     }
 
     @PostMapping("/finishService")
     @ApiOperation("Изменяет статус запроса на обслуживание на Repaired")
     public ResponseEntity<MessageResponse> finishService(@Valid @RequestBody InputRequestID inputRequestID) {
-        String s = requestService.finishService(inputRequestID.getId());
+        String s = requestService.finishService(inputRequestID);
         switch (s){
             case "OK":
                 return ResponseEntity.ok(new MessageResponse("Servicing finished successfully!"));
@@ -144,7 +144,7 @@ public class RequestController {
     @PostMapping("/payService")
     @ApiOperation("Изменяет статус запроса на обслуживание на Finished. Также тут ДОЛЖНА БЫТЬ оплата")
     public ResponseEntity<MessageResponse> payService(@Valid @RequestBody InputRequestID inputRequestID) {
-        if(requestService.payService(inputRequestID.getId()))
+        if(requestService.payService(inputRequestID))
             return ResponseEntity.ok(new MessageResponse("Request payed successfully!"));
         else
             return ResponseEntity

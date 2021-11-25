@@ -34,7 +34,7 @@ public class CarController {
     @ApiOperation("регистрирует машину клиента в системе")
     public ResponseEntity<MessageResponse> createCar(@Valid @RequestBody RegisterCarRequest registerCarRequest, Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
-        if(carService.createCar(registerCarRequest.getNumber(), registerCarRequest.getMark(), registerCarRequest.getModel(),user))
+        if(carService.createCar(registerCarRequest, user))
             return ResponseEntity.ok(new MessageResponse("Car registered successfully!"));
         else
             return ResponseEntity
