@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="request_1" author="Thor">
+        <createTable tableName="request">
+            <column name="id" type="bigserial" autoIncrement="true" >
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_request_id" />
+            </column>
+            <column name="client_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_request_client" references="user(id)"/>
+            </column>
+            <column name="master_id" type="bigint">
+                <constraints nullable="true"  foreignKeyName="fk_request_master" references="user(id)"/>
+            </column>
+            <column name="car_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_request_car" references="car(id)"/>
+            </column>
+            <column name="request_status_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_request_status" references="request_status(id)"/>
+            </column>
+            <column name="date" type="datetime"></column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="request_2" author="Thor">
+        <insert tableName="request">
+            <column name="client_id">2</column>
+            <column name="master_id">null</column>
+            <column name="car_id">1</column>
+            <column name="request_status_id">2</column>
+            <column name="date">2021-11-11 10:25:00</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

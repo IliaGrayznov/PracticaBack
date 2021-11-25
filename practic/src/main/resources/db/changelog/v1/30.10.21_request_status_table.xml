@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="request_status_1" author="Thor">
+        <createTable tableName="request_status">
+            <column name="id" type="bigserial" autoIncrement="true" >
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_request_status_id" />
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" unique="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="request_status_2" author="Thor">
+        <insert tableName="request_status">
+            <column name="name">Filled in</column>
+        </insert>
+        <insert tableName="request_status">
+            <column name="name">Accept wait</column>
+        </insert>
+        <insert tableName="request_status">
+            <column name="name">Accepted</column>
+        </insert>
+        <insert tableName="request_status">
+            <column name="name">Repair</column>
+        </insert>
+        <insert tableName="request_status">
+            <column name="name">Repaired</column>
+        </insert>
+        <insert tableName="request_status">
+            <column name="name">Finished</column>
+        </insert>
+        <insert tableName="request_status">
+            <column name="name">Rejected</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

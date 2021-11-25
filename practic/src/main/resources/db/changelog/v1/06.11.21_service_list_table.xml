@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="service_list_1" author="Thor">
+        <createTable tableName="service_list">
+            <column name="id" type="bigserial" autoIncrement="true" >
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_service_list_id" />
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" unique="false" />
+            </column>
+            <column name="description" type="clob">
+                <constraints nullable="true" unique="false" />
+            </column>
+            <column name="price" type="double">
+                <constraints nullable="true" unique="false" />
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="type_id" type="int">
+                <constraints  foreignKeyName="fk_type_status" references="service_type(id)"/>
+            </column>
+            <column name="deleted" type="boolean"></column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="service_list_2" author="Thor">
+        <insert tableName="service_list">
+            <column name="name">oil change</column>
+            <column name="description">oil change description</column>
+            <column name="price">66</column>
+            <column name="product_id">0</column>
+            <column name="type_id">7</column>
+            <column name="deleted">false</column>
+        </insert>
+        <insert tableName="service_list">
+            <column name="name">Brake system diagnostic</column>
+            <column name="description">Brake system diagnostics description</column>
+            <column name="price">100</column>
+            <column name="product_id">0</column>
+            <column name="type_id">3</column>
+            <column name="deleted">false</column>
+        </insert>
+        <insert tableName="service_list">
+            <column name="name">Change something in engine nothing</column>
+            <column name="description">Change something in engine description</column>
+            <column name="price">6666</column>
+            <column name="product_id">0</column>
+            <column name="type_id">5</column>
+            <column name="deleted">false</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
