@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Service
-public class OrderService {
+public class CartService {
     @Autowired
     OrderRepository orderRepository;
     @Autowired
@@ -29,7 +29,7 @@ public class OrderService {
     @Transactional
     public boolean addProductToCart(OrderRequest orderRequest, User user)  {
         // Создаем заказ с статусе "cart" и запись об этом в таблице "order", если у пользователя не создана корзина.
-        Order o = orderRepository.getOrderCart(user.getId());
+        Order o = orderRepository.getUserOrderCart(user.getId());
         if (o==null) {
             o = new Order();
             o.setUser(user);
@@ -69,7 +69,7 @@ public class OrderService {
     public boolean deleteProductFromCart(OrderRequest orderRequest, User user)  {
         //Если этот товар последний в корзине и его количество 1 штука - удалить заказ (сначала товар, потом заказ).
         //Если этого товара в корзине больше 1 штуки, уменьшить кол-во. Иначе удалить товар из корзины.
-        Order o = orderRepository.getOrderCart(user.getId());
+        Order o = orderRepository.getUserOrderCart(user.getId());
         OrderProduct op = orderProductRepository.getOneProductInOrder(o.getId(), orderRequest.getProduct_id());
         List<OrderProduct> opList = orderProductRepository.findAllByOrderId(o.getId());
         int amountOneProduct = op.getAmount_in_order();
@@ -96,15 +96,15 @@ public class OrderService {
 
 
     @Transactional
-    public List<Product> showOrder(User user)  {
-        Order o = orderRepository.getOrderCart(user.getId());
+    public List<Product> showCart(User user)  {
+        Order o = orderRepository.getUserOrderCart(user.getId());
         List<Product> opList = productRepository.getAllProductsInOrder(o.getId());
         return opList;
     }
 
     @Transactional
-    public List<Product> confirmAndShowOrder(User user)  {
-        Order o = orderRepository.getOrderCart(user.getId());
+    public List<Product> confirmAndShowCart(User user)  {
+        Order o = orderRepository.getUserOrderCart(user.getId());
         List<Product> opList = productRepository.getAllProductsInOrder(o.getId());
         o.setOrderStatus(orderStatusRepository.getById((long)2));
         return opList;

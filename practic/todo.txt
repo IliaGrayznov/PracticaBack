@@ -27,3 +27,7 @@
 
 SQL запрос для выбора всех товаров, которые есть в заказе
 select * from product join order_product on product.id = order_product.product_id where order_product.order_id=5;
+
+
+
+Вариант Илюхи: select o.products from OrderProduct o where o.order.id=:idO
