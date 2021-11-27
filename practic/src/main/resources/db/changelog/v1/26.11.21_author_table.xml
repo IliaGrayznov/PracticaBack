@@ -14,8 +14,9 @@
             <column name="user_id" type="bigserial">
                 <constraints nullable="false" foreignKeyName="fk_user_author" references="user(id)"/>
             </column>
-            <<column name="status" type="varchar(100)">
+            <column name="status" type="varchar(100)">
             <constraints nullable="false"  />
         </column>
         </createTable>
     </changeSet>
+</databaseChangeLog>

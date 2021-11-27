@@ -11,6 +11,6 @@ public class Author{
     private int id;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User id;
+    private User user;
     private String status;
 }

@@ -7,18 +7,19 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="news_1" author="d30">
-        <createTable tableName="news">
+        <createTable tableName="currentnews">
             <column name="id" type="bigserial" autoIncrement="true" >
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_curr_news_id" />
             </column>
             <column name="cat_id" type="bigserial">
-                <constraints nullable="false" foreignKeyName="fk_cat" references="cat(id)"/>
+                <constraints nullable="false" />
             </column>
             <column name="news_id" type="bigserial">
-                <constraints nullable="false" foreignKeyName="fk_news" references="news(id)"/>
+                <constraints nullable="false"  />
             </column>
             <column name="author_id" type="bigserial">
-                <constraints nullable="false" foreignKeyName="fk_author" references="author(id)"/>
+                <constraints nullable="false"  />
             </column>
         </createTable>
     </changeSet>
+</databaseChangeLog>

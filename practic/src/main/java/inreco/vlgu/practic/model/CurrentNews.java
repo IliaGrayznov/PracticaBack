@@ -5,17 +5,17 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "current_news")
-public class Current-news{
+@Table(name = "currentnews")
+public class CurrentNews{
     @Id
     private int id;
     @ManyToOne
     @JoinColumn(name = "cat_id")
-    private User id;
+    private User user;
     @ManyToOne
     @JoinColumn(name = "news_id")
-    private News id;
+    private News news;
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private Author id;
+    private Author author;
 }

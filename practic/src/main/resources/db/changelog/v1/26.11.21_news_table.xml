@@ -14,6 +14,18 @@
             <column name="preview" type="varchar(100)">
                 <constraints nullable="false" unique="true" />
             </column>
-            <column name="content" type="TEXT"></column>
+            <column name="content" type="TEXT"> </column>
         </createTable>
+
+        <addForeignKeyConstraint baseTableName="currentnews" baseColumnNames="news_id" constraintName="fk_news"
+                                 referencedTableName="news"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="currentnews" baseColumnNames="cat_id" constraintName="fk_cat"
+                                 referencedTableName="cat"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="currentnews" baseColumnNames="author_id" constraintName="fk_author"
+                                 referencedTableName="author"
+                                 referencedColumnNames="id"/>
+
     </changeSet>
+</databaseChangeLog>
