@@ -22,8 +22,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-        // securedEnabled = true,
-        // jsr250Enabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true,
         prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers(
                         "/api/auth/**",
-                "/api/service/available",
+                "/api/product/products",
                 "/swagger-ui/**",
                 "/v2/api-docs",
                 "/swagger-resources",
@@ -70,10 +70,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-ui.html",
                 "/webjars/**","/v3/api-docs/**",
                 "/swagger-ui/**").permitAll()
-                .antMatchers("/api/test/client").hasRole("client")
+                .antMatchers("/api/test/client",
+                        "/api/client/order/add",
+                        "/api/client/order/confirm",
+                        "/api/client/order/delete",
+                        "/api/client/order/show",
+                        "/api/client/orders").hasRole("client")
                 .antMatchers("/api/test/master").hasRole("master")
                 .antMatchers("/api/test/admin").hasRole("admin")
-                .antMatchers("/api/test/manager").hasRole("manager")
+                .antMatchers("/api/test/manager",
+                        "/api/product/change",
+                        "/api/product/create",
+                        "/api/product/delete",
+                        "/api/manager/order/close",
+                        "/api/manager/order/confirm",
+                        "/api/manager/order/delete",
+                        "/api/manager/show/confirmed",
+                        "/api/manager/show/ordered").hasRole("manager")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
