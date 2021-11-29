@@ -9,7 +9,7 @@ import lombok.Data;
 public class Author{
     @Id
     private int id;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
     private String status;

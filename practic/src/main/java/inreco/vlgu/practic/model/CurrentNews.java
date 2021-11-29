@@ -11,7 +11,7 @@ public class CurrentNews{
     private int id;
     @ManyToOne
     @JoinColumn(name = "cat_id")
-    private User user;
+    private Cat cat;
     @ManyToOne
     @JoinColumn(name = "news_id")
     private News news;

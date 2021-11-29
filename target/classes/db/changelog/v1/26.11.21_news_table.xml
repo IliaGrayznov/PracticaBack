@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="news_1" author="d30">
+        <createTable tableName="news">
+            <column name="id" type="bigserial" autoIncrement="true" >
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_news_id" />
+            </column>
+            <column name="preview" type="varchar(100)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="content" type="TEXT"> </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="currentnews" baseColumnNames="news_id" constraintName="fk_news"
+                                 referencedTableName="news"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="currentnews" baseColumnNames="cat_id" constraintName="fk_cat"
+                                 referencedTableName="cat"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="currentnews" baseColumnNames="author_id" constraintName="fk_author"
+                                 referencedTableName="author"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+</databaseChangeLog>
