@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -51,7 +52,20 @@ public class NewsService {
     }
 
 
-        public List<News> getall(){
+        public List<News> getall()  {
         return newsRepository.getAll();
+        }
+
+        public  List<News> gethot () {
+        List<CurrentNews> cn = currentNewsRepository.getAllByHot();
+            List<News> news = new ArrayList<>();
+            cn.forEach(item -> news.add(item.getNews()));
+            return news;
+        }
+
+        @Transactional
+        public void delete (int id) {
+        News n = newsRepository.getById(id);
+        newsRepository.delete(n);
         }
 }

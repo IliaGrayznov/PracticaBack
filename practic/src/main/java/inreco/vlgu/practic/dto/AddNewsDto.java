@@ -8,5 +8,5 @@ public class AddNewsDto {
     private String content;
     private int cat_id;
     private String token;
-
+    private  boolean hot;
 }

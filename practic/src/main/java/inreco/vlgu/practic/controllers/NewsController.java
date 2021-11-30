@@ -31,4 +31,14 @@ public class NewsController {
         n.update(updateNewsDto);
     }
 
+    @GetMapping("/delete/{id}")
+    public void  delete (@PathVariable int id) {
+        n.delete(id);
+    }
+
+    @GetMapping ("/hot")
+    public  List<News> hot () {
+        return n.gethot();
+    }
+
 }

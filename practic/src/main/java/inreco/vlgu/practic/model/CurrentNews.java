@@ -18,4 +18,5 @@ public class CurrentNews{
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;
+    private  boolean hot;
 }

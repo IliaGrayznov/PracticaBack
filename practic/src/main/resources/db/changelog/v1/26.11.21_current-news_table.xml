@@ -20,6 +20,9 @@
             <column name="author_id" type="bigserial">
                 <constraints nullable="false"  />
             </column>
+            <column name="hot" type="boolean">
+                <constraints nullable="false"  />
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>
