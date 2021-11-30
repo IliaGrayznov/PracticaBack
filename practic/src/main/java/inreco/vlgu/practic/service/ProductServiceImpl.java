@@ -4,6 +4,7 @@ import inreco.vlgu.practic.dto.product.ProductChangeRequest;
 import inreco.vlgu.practic.dto.product.ProductCreateRequest;
 import inreco.vlgu.practic.dto.product.ProductDeleteRequest;
 import inreco.vlgu.practic.model.Product;
+import inreco.vlgu.practic.model.ProductCategory;
 import inreco.vlgu.practic.repository.ProductCategoryRepository;
 import inreco.vlgu.practic.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class ProductServiceImpl implements ProductService {
 
     public List<Product> getProducts()  {
         return productRepository.findAllWithoutNotExist();
+    }
+
+    public List<ProductCategory> getCategories()  {
+        return productCategoryRepository.findAll();
     }
 
     @Transactional

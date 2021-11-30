@@ -75,9 +75,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/client/order/confirm",
                         "/api/client/order/delete",
                         "/api/client/order/show",
-                        "/api/client/orders").hasRole("client")
+                        "/api/client/orders",
+                        "/api/client/categories").hasRole("client")
                 .antMatchers("/api/test/master").hasRole("master")
-                .antMatchers("/api/test/admin").hasRole("admin")
+                .antMatchers("/api/test/admin", "**").hasRole("admin")
                 .antMatchers("/api/test/manager",
                         "/api/product/change",
                         "/api/product/create",
@@ -86,7 +87,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/manager/order/confirm",
                         "/api/manager/order/delete",
                         "/api/manager/show/confirmed",
-                        "/api/manager/show/ordered").hasRole("manager")
+                        "/api/manager/show/ordered",
+                        "/api/product/create").hasRole("manager")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

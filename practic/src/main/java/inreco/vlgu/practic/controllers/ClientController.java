@@ -4,10 +4,12 @@ package inreco.vlgu.practic.controllers;
 import inreco.vlgu.practic.dto.auth.response.MessageResponse;
 import inreco.vlgu.practic.dto.order.OrderRequest;
 import inreco.vlgu.practic.dto.order.OrderResponse;
+import inreco.vlgu.practic.dto.product.ProductCategoryResponse;
 import inreco.vlgu.practic.dto.product.ProductResponse;
 import inreco.vlgu.practic.model.User;
 import inreco.vlgu.practic.repository.UserRepository;
 import inreco.vlgu.practic.service.ClientService;
+import inreco.vlgu.practic.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,8 @@ import java.security.Principal;
 public class ClientController {
     @Autowired
     ClientService clientService;
+    @Autowired
+    ProductService productService;
     @Autowired
     UserRepository userRepository;
 
@@ -69,5 +73,10 @@ public class ClientController {
     public ResponseEntity<OrderResponse> showOrders(Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
         return ResponseEntity.ok(new OrderResponse(clientService.showOrders(user)));
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<ProductCategoryResponse> showCategories() {
+        return ResponseEntity.ok(new ProductCategoryResponse(productService.getCategories()));
     }
 }
