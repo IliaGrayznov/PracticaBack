@@ -2,6 +2,7 @@ package inreco.vlgu.practic.controllers;
 
 
 import inreco.vlgu.practic.dto.auth.response.MessageResponse;
+import inreco.vlgu.practic.dto.order.CartResponse;
 import inreco.vlgu.practic.dto.order.OrderRequest;
 import inreco.vlgu.practic.dto.order.OrderResponse;
 import inreco.vlgu.practic.dto.product.ProductCategoryResponse;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -64,9 +66,9 @@ public class ClientController {
     }
 
     @GetMapping("/order/show")
-    public ResponseEntity<ProductResponse> showCart(Principal principal) {
+    public ResponseEntity<List<CartResponse>> showCart(Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
-        return ResponseEntity.ok(new ProductResponse(clientService.showCart(user)));
+        return ResponseEntity.ok(clientService.showCart(user));
     }
 
     @GetMapping("/orders")

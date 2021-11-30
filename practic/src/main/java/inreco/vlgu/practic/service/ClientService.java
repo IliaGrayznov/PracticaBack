@@ -1,5 +1,6 @@
 package inreco.vlgu.practic.service;
 
+import inreco.vlgu.practic.dto.order.CartResponse;
 import inreco.vlgu.practic.dto.order.OrderRequest;
 import inreco.vlgu.practic.model.Order;
 import inreco.vlgu.practic.model.Product;
@@ -13,7 +14,7 @@ import java.util.List;
 public interface ClientService {
     public boolean addProductToCart(OrderRequest orderRequest, User user);
     public boolean deleteProductFromCart(OrderRequest orderRequest, User user);
-    public List<Product> showCart(User user);
+    public List<CartResponse> showCart(User user);
     public boolean order(User user);
     public List<Order> showOrders(User user);
 }

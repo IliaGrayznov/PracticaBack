@@ -1,5 +1,6 @@
 package inreco.vlgu.practic.service;
 
+import inreco.vlgu.practic.dto.order.CartResponse;
 import inreco.vlgu.practic.dto.order.OrderRequest;
 import inreco.vlgu.practic.model.Order;
 import inreco.vlgu.practic.model.OrderProduct;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -94,10 +96,18 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Transactional
-    public List<Product> showCart(User user)  {
+    public List<CartResponse> showCart(User user)  {
         Order o = orderRepository.getUserOrderInStatusCart(user.getId());
-        List<Product> opList = productRepository.getAllProductsInOrder(o.getId());
-        return opList;
+        List<OrderProduct> opList = orderProductRepository.getProductsInOrder(o.getId());
+        List<CartResponse> cartList = new ArrayList<>();
+        for (OrderProduct op :
+                opList) {
+            CartResponse c = new CartResponse();
+            c.setProduct(op.getProduct());
+            c.setAmount(op.getAmount_in_order());
+            cartList.add(c);
+        }
+        return cartList;
     }
 
     @Transactional
