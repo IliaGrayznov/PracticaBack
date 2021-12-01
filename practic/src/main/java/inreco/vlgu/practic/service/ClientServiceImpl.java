@@ -99,14 +99,18 @@ public class ClientServiceImpl implements ClientService {
     @Transactional
     public List<CartResponse> showCart(User user)  {
         Order o = orderRepository.getUserOrderInStatusCart(user.getId());
-        List<OrderProduct> opList = orderProductRepository.getProductsInOrder(o.getId());
         List<CartResponse> cartList = new ArrayList<>();
-        for (OrderProduct op :
-                opList) {
-            CartResponse c = new CartResponse();
-            c.setProduct(op.getProduct());
-            c.setAmount(op.getAmount_in_order());
-            cartList.add(c);
+        try {
+            List<OrderProduct> opList = orderProductRepository.getProductsInOrder(o.getId());
+            for (OrderProduct op :
+                    opList) {
+                CartResponse c = new CartResponse();
+                c.setProduct(op.getProduct());
+                c.setAmount(op.getAmount_in_order());
+                cartList.add(c);
+            }
+        } catch (Exception e) {
+            return cartList;
         }
         return cartList;
     }
@@ -114,12 +118,17 @@ public class ClientServiceImpl implements ClientService {
     @Transactional
     public AmountCartResponse showAmountProductsInCart(User user)  {
         Order o = orderRepository.getUserOrderInStatusCart(user.getId());
-        List<OrderProduct> opList = orderProductRepository.getProductsInOrder(o.getId());
-        AmountCartResponse acr = new AmountCartResponse();
         int amount = 0;
-        for (OrderProduct op :
-                opList) {
-            amount++;
+        AmountCartResponse acr = new AmountCartResponse();
+        try {
+            List<OrderProduct> opList = orderProductRepository.getProductsInOrder(o.getId());
+            for (OrderProduct op :
+                    opList) {
+                amount++;
+            }
+        } catch (Exception e) {
+            acr.setAmount(amount);
+            return acr;
         }
         acr.setAmount(amount);
         return acr;

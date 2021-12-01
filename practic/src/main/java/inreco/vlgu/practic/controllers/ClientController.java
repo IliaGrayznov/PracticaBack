@@ -63,7 +63,7 @@ public class ClientController {
         else
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Ошибка: что-то пошло не так("));
+                    .body(new MessageResponse("Ошибка: что-то пошло не так, возможно, товар закончился("));
     }
 
     @GetMapping("/order/show")

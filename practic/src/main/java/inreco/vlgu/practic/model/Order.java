@@ -1,5 +1,7 @@
 package inreco.vlgu.practic.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
     User user;
 
     @ManyToOne
