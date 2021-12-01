@@ -38,4 +38,11 @@ public class TestController {
     public String managerAccess() {
         return "Manager Board.";
     }
+
+    @GetMapping("/author")
+    // @PreAuthorize("hasRole('manager')")
+    public String authorAccess() {
+        return "Author Board.";
+    }
+
 }

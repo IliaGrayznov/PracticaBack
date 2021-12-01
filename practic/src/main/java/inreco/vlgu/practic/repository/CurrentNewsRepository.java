@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CurrentNewsRepository extends JpaRepository<CurrentNews,Integer> {
-   List<CurrentNews> getAllByHot(boolean hot);
+   List<CurrentNews> getAllByHotTrue();
+   List<CurrentNews> getAllByTopTrue();
 }

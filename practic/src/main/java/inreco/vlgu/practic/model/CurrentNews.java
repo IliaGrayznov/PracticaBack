@@ -19,4 +19,6 @@ public class CurrentNews{
     @JoinColumn(name = "author_id")
     private Author author;
     private  boolean hot;
+    private  boolean top;
+
 }

@@ -26,6 +26,7 @@ public class NewsController {
     public List<News>  getall (){
         return  n.getall();
     }
+
     @PostMapping ("/upd")
     public  void update (@RequestBody UpdateNewsDto updateNewsDto) {
         n.update(updateNewsDto);
@@ -41,4 +42,8 @@ public class NewsController {
         return n.gethot();
     }
 
+    @GetMapping ("/top")
+    public  List<News> top () {
+        return n.gettop();
+    }
 }

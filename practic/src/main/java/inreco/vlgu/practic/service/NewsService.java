@@ -53,11 +53,11 @@ public class NewsService {
 
 
         public List<News> getall()  {
-        return newsRepository.getAll();
+        return newsRepository.findAll();
         }
 
         public  List<News> gethot () {
-        List<CurrentNews> cn = currentNewsRepository.getAllByHot();
+        List<CurrentNews> cn = currentNewsRepository.getAllByHotTrue();
             List<News> news = new ArrayList<>();
             cn.forEach(item -> news.add(item.getNews()));
             return news;
@@ -68,4 +68,12 @@ public class NewsService {
         News n = newsRepository.getById(id);
         newsRepository.delete(n);
         }
+
+    public  List<News> gettop () {
+        List<CurrentNews> cn = currentNewsRepository.getAllByTopTrue();
+        List<News> news = new ArrayList<>();
+        cn.forEach(item -> news.add(item.getNews()));
+        return news;
+    }
+
 }

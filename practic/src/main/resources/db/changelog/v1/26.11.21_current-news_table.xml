@@ -23,6 +23,9 @@
             <column name="hot" type="boolean">
                 <constraints nullable="false"  />
             </column>
+            <column name="top" type="boolean">
+                <constraints   />
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

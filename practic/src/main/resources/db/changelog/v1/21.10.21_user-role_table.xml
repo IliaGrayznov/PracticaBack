@@ -42,4 +42,11 @@
         </insert>
     </changeSet>
 
+    <changeSet id="user-role_3" author="d30">
+        <insert tableName="user_role">
+            <column name="user_id">5</column>
+            <column name="role_id">5</column>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

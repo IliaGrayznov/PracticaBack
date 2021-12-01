@@ -41,5 +41,11 @@
         </insert>
     </changeSet>
 
+    <changeSet id="user_4" author="d30">
+        <insert tableName="user">
+            <column name="username">author</column>
+            <column name="password">$2a$10$nwMjK54hTRp0JlDYAClPjeTaIlqUkKs2fCRDbkNYJ6588RxkZTrNO</column>
+        </insert>
+    </changeSet>
 
 </databaseChangeLog>
