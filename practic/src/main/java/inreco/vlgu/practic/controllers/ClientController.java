@@ -2,6 +2,7 @@ package inreco.vlgu.practic.controllers;
 
 
 import inreco.vlgu.practic.dto.auth.response.MessageResponse;
+import inreco.vlgu.practic.dto.order.AmountCartResponse;
 import inreco.vlgu.practic.dto.order.CartResponse;
 import inreco.vlgu.practic.dto.order.OrderRequest;
 import inreco.vlgu.practic.dto.order.OrderResponse;
@@ -69,6 +70,12 @@ public class ClientController {
     public ResponseEntity<List<CartResponse>> showCart(Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).get();
         return ResponseEntity.ok(clientService.showCart(user));
+    }
+
+    @GetMapping("/order/amount")
+    public ResponseEntity<AmountCartResponse> showAmountCart(Principal principal) {
+        User user = userRepository.findByUsername(principal.getName()).get();
+        return ResponseEntity.ok(clientService.showAmountProductsInCart(user));
     }
 
     @GetMapping("/orders")

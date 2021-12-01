@@ -12,7 +12,7 @@ import java.util.List;
 public interface OrderProductRepository extends JpaRepository<OrderProduct, Long> {
     @Query("select op from OrderProduct op where op.order.id=:idO and op.product.id =:idP")
     OrderProduct getOneProductInOrder(@Param("idO") long idO, @Param("idP") long idP);
-    @Query("select op from OrderProduct op where op.order.id=:idO")
+    @Query("select op from OrderProduct op where op.order.id=:idO order by op.id")
     List<OrderProduct> getProductsInOrder(@Param("idO") long idO);
     @Query()
     List<OrderProduct> findAllByOrderId(@Param("idO") long idO);

@@ -76,7 +76,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/client/order/delete",
                         "/api/client/order/show",
                         "/api/client/orders",
-                        "/api/client/categories").hasRole("client")
+                        "/api/client/categories",
+                        "/api/client/order/amount").hasRole("client")
                 .antMatchers("/api/test/master").hasRole("master")
                 .antMatchers("/api/test/admin", "**").hasRole("admin")
                 .antMatchers("/api/test/manager",

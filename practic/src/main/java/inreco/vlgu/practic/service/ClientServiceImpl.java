@@ -1,5 +1,6 @@
 package inreco.vlgu.practic.service;
 
+import inreco.vlgu.practic.dto.order.AmountCartResponse;
 import inreco.vlgu.practic.dto.order.CartResponse;
 import inreco.vlgu.practic.dto.order.OrderRequest;
 import inreco.vlgu.practic.model.Order;
@@ -108,6 +109,20 @@ public class ClientServiceImpl implements ClientService {
             cartList.add(c);
         }
         return cartList;
+    }
+
+    @Transactional
+    public AmountCartResponse showAmountProductsInCart(User user)  {
+        Order o = orderRepository.getUserOrderInStatusCart(user.getId());
+        List<OrderProduct> opList = orderProductRepository.getProductsInOrder(o.getId());
+        AmountCartResponse acr = new AmountCartResponse();
+        int amount = 0;
+        for (OrderProduct op :
+                opList) {
+            amount++;
+        }
+        acr.setAmount(amount);
+        return acr;
     }
 
     @Transactional
