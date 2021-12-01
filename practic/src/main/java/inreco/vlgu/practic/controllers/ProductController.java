@@ -26,6 +26,11 @@ public class ProductController {
         return ResponseEntity.ok(new ProductResponse(productService.getProducts()));
     }
 
+    @GetMapping("/manager/products")
+    public ResponseEntity<ProductResponse> productsManager() {
+        return ResponseEntity.ok(new ProductResponse(productService.getProductsManager()));
+    }
+
     @PostMapping("/create")
     public ResponseEntity<MessageResponse> createProduct(@Valid @RequestBody
                                                                  ProductCreateRequest productCreateRequest) {

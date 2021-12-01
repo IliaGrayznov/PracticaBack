@@ -25,6 +25,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAllWithoutNotExist();
     }
 
+    public List<Product> getProductsManager()  {
+        return productRepository.findAll();
+    }
+
     public List<ProductCategory> getCategories()  {
         return productCategoryRepository.findAll();
     }

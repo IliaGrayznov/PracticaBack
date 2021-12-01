@@ -68,8 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/configuration/ui",
                 "/configuration/security",
                 "/swagger-ui.html",
-                "/webjars/**","/v3/api-docs/**",
-                "/swagger-ui/**").permitAll()
+                "/webjars/**","/v3/api-docs/**").permitAll()
                 .antMatchers("/api/test/client",
                         "/api/client/order/add",
                         "/api/client/order/confirm",
@@ -78,8 +77,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/client/orders",
                         "/api/client/categories",
                         "/api/client/order/amount").hasRole("client")
-                .antMatchers("/api/test/master").hasRole("master")
-                .antMatchers("/api/test/admin", "**").hasRole("admin")
                 .antMatchers("/api/test/manager",
                         "/api/product/change",
                         "/api/product/create",
@@ -89,7 +86,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/manager/order/delete",
                         "/api/manager/show/confirmed",
                         "/api/manager/show/ordered",
-                        "/api/product/create").hasRole("manager")
+                        "/api/product/create",
+                        "/api/client/categories",
+                        "/api/product/manager/products").hasRole("manager")
+                .antMatchers("/api/test/admin", "**").hasRole("admin")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 public interface ProductService  {
     public List<Product> getProducts();
+    public List<Product> getProductsManager();
     public boolean createProduct(ProductCreateRequest productCreateRequest);
     public boolean changeProduct(ProductChangeRequest productChangeRequest);
     public boolean deleteProduct(ProductDeleteRequest productDeleteRequest);
