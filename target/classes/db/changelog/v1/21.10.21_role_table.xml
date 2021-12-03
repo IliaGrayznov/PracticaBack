@@ -35,4 +35,9 @@
         </insert>
     </changeSet>
 
+    <changeSet id="role_4" author="d30">
+        <insert tableName="role">
+            <column name="name">ROLE_author</column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
