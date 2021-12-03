@@ -15,6 +15,9 @@
                 <constraints nullable="false" unique="true" />
             </column>
             <column name="content" type="TEXT"> </column>
+            <column name="date" type="date">
+                <constraints nullable="false" unique="true" />
+            </column>
         </createTable>
 
         <addForeignKeyConstraint baseTableName="currentnews" baseColumnNames="news_id" constraintName="fk_news"
